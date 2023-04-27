@@ -1,7 +1,7 @@
 # 重拾大前端
 
 <a src='https://frontend.a-nomad.com'>
-<img src='https://s2.loli.net/2023/04/26/vuK3alWw81mdCBA.webp' width='450' />
+<img src='https://s2.loli.net/2023/04/28/bG9ogaOuK7BAZwf.jpg' width='450' />
 </a>
 
 ## 拥抱大前端时代

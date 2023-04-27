@@ -1,19 +1,19 @@
 {
-  "name": "architecture",
+  "name": "frontend",
   "version": "1.0.0",
-  "description": "分布式系统架构设计",
+  "description": "重拾大前端",
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
   },
-  "repository": "https://github.com/colin-chang/architecture",
+  "repository": "https://github.com/colin-chang/frontend",
   "author": "Colin Chang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/colin-chang/architecture/issues"
+    "url": "https://github.com/colin-chang/frontend/issues"
   },
-  "homepage": "https://architecture.a-nomad.com",
+  "homepage": "https://frontend.a-nomad.com",
   "devDependencies": {
     "@vuepress/plugin-active-header-links": "^1.9.9",
     "@vuepress/plugin-back-to-top": "^1.9.9",

@@ -23,9 +23,9 @@ module.exports = {
         smoothScroll:true,
         search: false,
         algolia: {
-            apiKey: '',
-            indexName: 'frontend-nomad',
-            appId: ''
+            apiKey: '8560f06db7508fff341be702fc136cbb',
+            indexName: 'frontend-a-nomad',
+            appId: 'BE6OXSV9EK'
         },
         nav: [{
                 text: 'Get Start',
