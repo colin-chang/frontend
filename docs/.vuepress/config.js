@@ -61,13 +61,13 @@ module.exports = {
                     '/basic/css3'
                 ]
             },
-            {
-                title: '技术进阶',
-                collapsable: false,
-                children: [
-                    '/senior/generator'
-                ]
-            },
+            // {
+            //     title: '技术进阶',
+            //     collapsable: false,
+            //     children: [
+            //         '/senior/generator'
+            //     ]
+            // },
         ],
         sidebarDepth:3,
         displayAllHeaders: true,
