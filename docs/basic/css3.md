@@ -35,6 +35,7 @@
 #### 1.2.3 复合属性
 `font : style weight size/line-height family;`
 只能省略前两个，如果省略了相当于设置了默认值。
+
 ### 1.3 缩进与装饰
 #### 1.3.1 文字缩进
 `text-indent`属性控制文字缩进，单位`px`或`em`（推荐）。
@@ -49,6 +50,16 @@ none|无装饰线
 underline|下划线
 overline|上划线
 line-through|删除线
+
+#### 1.3.3 文字阴影
+`text-shadow`属性用于控制文字阴影效果。可选属性如下。
+属性值|效果
+:-|:-
+h-shadow|必须，水平偏移量。允许负值
+v-shadow|必须，垂直偏移量。允许负值
+blur|可选，模糊度
+color|可选，阴影颜色
+
 ### 1.4 行高
 `line-height`属性用于控制一行的上下行间距，设置数字+`px`表示行高为具体高度，如果不带单位直接设置数字则表示当前标签字号的倍数（可以为小数）。
 
@@ -74,10 +85,34 @@ repeat-y|纵向平铺
 ![background-position](https://s2.loli.net/2023/04/27/z9r3fUhvkWiQyRt.jpg)
 方位名词取值和坐标取值可以混使用，第一个取值表示水平，第二个取值表示垂直。坐标是负值，表示反方向位置。
 
-### 2.3 background
-背景相关属性的连写形式：`background：color image repeat position`。四个属性顺序没有强制要求，但建议顺序如上，可以按照需求省略。
+### 2.3 background-size
+`background-size`属性用于控制背景图片尺寸，即缩放背景图片。语法如下：`background-size:宽度 高度;`
+取值|效果
+:-|:-
+数字+px|简单方便，常用
+百分比|相对于当前盒子自身的宽高百分比
+`contain`|包含，将背景图片等比例缩放，直到不会超出盒子的最大
+`cover`|覆盖，将背景图片等比例缩放，直到刚好填满整个盒子没有空白
+
+实际开发中一般盒子的比例与背景图比例是相同的，此时`contain`和`cover`效果一致。
+
+
+### 2.4 background
+背景相关属性的连写形式：`background：color image repeat position/size`。四个属性顺序没有强制要求，但建议顺序如上，可以按照需求省略。
+
+### 2.5 精灵图
+浏览器访问一个网站时，同一张图一般会加载一次后缓存在本地，多次使用时也不会重新加载。以此原理，我们经常将项目中相关的小图标合并为一张大图，并作为背景图使用在不同的位置，此称之为精灵图。精灵图不会总体图标尺寸，但可以减少网页发送网络请求的次数，减轻服务器的压力，提高页面加载速度。
+
+使用精灵图步骤如下：
+* 创建一个盒子
+* 测量精灵图中要使用的图标尺寸并将小图片的宽高设置给盒子
+* 将精灵图设置为盒子的背景图片
+* 测量小图片左上角坐标，分别取负值设置给盒子的`background-position:x y`
+
 
 ## 3. 选择器
+
+CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后代选择器`的组合，组合层级并不是越多越好，一个选择器中 **类选择器的个数推荐不超过3个**。
 
 * 后代选择器
   
@@ -165,10 +200,22 @@ repeat-y|纵向平铺
     * 设置浮动
   * 行内元素的margin和padding无效情况无法修改其垂直位置。如果要修改其垂直位置可以通过修改其显示模式或者设置行高。
 
+* 盒子阴影
+  
+  `box-shadow`属性用于控制盒子阴影效果。参数及左右如下表：
+
+    参数|作用
+    :-|:-
+    h-shadow|必须，水平偏移量。允许负值
+    v-shadow|必须，垂直偏移量。允许负值
+    blur|可选，模糊度
+    spread|可选，阴影扩大
+    color|可选，阴影颜色
+    inset|可选，将阴影改为内部阴影
+
 * 边框三角形
 
   将盒子宽高设置为0，仅保留边框就会得到四个三角形。可以通过修改边框宽度来得到不同形状的三角形，然后设置透明度将不需要的三角形隐藏。
-
 
 ## 5. 浮动
 ### 5.1 标准流
@@ -328,6 +375,35 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 ### 7.7 元素整体透明度
 `opacity`属性用于控制某元素整体（包括内容）一起变透明。属性值：0~1之间的数字，1表示完全不透明，0表示我完全透明。
 
+### 7.8 过渡
+`transition`属性可以元素的样式慢慢的变化，常配合`hover`使用，增强网页交互体验。
+
+参数与取值如下表：
+
+参数|取值
+:-|:-
+过渡的属性|`all`：所有能过渡的属性都过渡; 具体属性名如：`width`,只有width有过渡
+过渡的时长|数字+s（秒）
+
+
+使用步骤如下：
+* 默认状态 和 hover状态样式不同，才能有过渡效果。
+* transition属性给需要过渡的**元素本身**加
+
+```css
+/* 鼠标悬浮时实现宽度和背景色过渡变化效果 */
+.box{
+  width:100px;
+  backgroud-color:red;
+  /* transition:width 1s,backgroud-color 2s */
+  transition: all 1s;
+}
+.box:hover{
+  width:120px;
+  backgroud-color:pink;
+}
+```
+
 ## 8. 其他
 * 行内元素
 
@@ -375,9 +451,17 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 * CSS书写顺序
   
   CSS建议采用如下顺序书写，更加规范且浏览器渲染效率更高。
-  1. 位置控制： float / display / position
+  
+  1. 布局控制： display float position
   2. 盒子模型： margin border padding width height background 
   3. 文字样式： text-align等
+
+  顺序|类别|属性
+  :-|:-|:-
+  1|布局属性|`display`/`position`/`float`/`clear`/`visibility`/`overflow`
+  2|盒子模型+背景|`margin`/`border`/`padding`/`width`/`height`/`background`
+  3|文本内容展性|`color`/`font`/`text-decoration`/`text-align`/`line-height`
+  4|点缀属性|`cursor`/`border-radius`/`text-shadow`/`box-shadow`
    
 * 导航结构
   
@@ -387,3 +471,9 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 
   通过设置`border-collapse:collapse;`可以让相邻表格边框进行合并，得到细线边框效果
 
+* favicon
+  
+  一般情况下我们会在网站根目录下放置一个名为`favicon.ico`的文件，然后通过如下代码引入网页，此图标会显示在网页标题栏最左侧。
+  ```html
+  <link rel="shortcut icon href="favicon.ico" type="image/x-icon">
+  ```
