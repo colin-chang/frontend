@@ -413,7 +413,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
   
   ![居中显示方法汇总](https://s2.loli.net/2023/04/27/KwBFYAxur2i9gVs.jpg)
   * `img`标签垂直居中需要设置`vertical-align:middle;`
-  * 绝对定位的盒子居中需要首先设置其`left`和`top`为50%，然后`margin-left`和设置为宽度的一半，`margin-top`设置为高度的一半即可。或者使用CSS3的位移属性设置`transform:translate(50%,50%)`，表示水平和垂直各移动到50%的位置。
+  * 绝对定位的盒子居中需要首先设置其`left`和`top`为50%。然后`margin-left`和设置为宽度的一半，`margin-top`设置为高度的一半即可，或者使用CSS3的位移属性设置`transform:translate(50%,50%)`，表示水平和垂直各移动到50%的位置。
 
 * CSS继承
 
@@ -463,9 +463,25 @@ auto|根据是否溢出，自动显示或隐藏滚动条
   3|文本内容展性|`color`/`font`/`text-decoration`/`text-align`/`line-height`
   4|点缀属性|`cursor`/`border-radius`/`text-shadow`/`box-shadow`
    
-* 导航结构
+* 导航/banner
   
-  一般导航结构都会使用`ul>li>a`的格式，而不是直接使用`a`标签，否则会降低浏览器渲染效率。
+  * 一般主导航结构都会使用`ul>li>a`的格式，而不是直接使用`a`标签，否则会降低浏览器渲染效率，但是版权栏部分不涉及SEO等问题，可以直接使用`a`即可。
+  * `banner`中轮播图效果，多张轮播图一般也使用`ul>li>a`的格式，而轮播图的小圆点则一般使用`ol>li`。
+
+* Logo SEO
+
+  一般情况下为了SEO，我们会使用`h1>a+链接文字(字号为0)+logo背景图`的结果来定义logo部分。
+  ```css
+  .logo h1 a{
+    display:block;
+    width:270px;
+    height:70px;
+    background-image:url('../images/logo.png')
+    background-size:cover;
+    /*隐藏logo文字内容，但对搜索引擎可见，有利于SEO*/
+    font-size:0;
+  }
+  ```
 
 * 表格边框合并
 
