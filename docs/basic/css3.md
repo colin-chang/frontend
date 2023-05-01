@@ -651,7 +651,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 
 案例：和平精英效果
 
-<iframe src="https://frontend-demo.a-nomad.com/transform_scale/index.html" style="margin-top:20px;width:300px;height:52px;border:0" scrolling="no" />
+<iframe src="https://frontend-demo.a-nomad.com/transform_scale/index.html" style="width:300px;height:221px;border:0" scrolling="no" />
 
 ```html
 <style>
