@@ -83,6 +83,7 @@ repeat-y|纵向平铺
 `background-position：水平方向位置 垂直方向位置;`
 
 ![background-position](https://s2.loli.net/2023/04/27/z9r3fUhvkWiQyRt.jpg)
+
 方位名词取值和坐标取值可以混使用，第一个取值表示水平，第二个取值表示垂直。坐标是负值，表示反方向位置。
 
 ### 2.3 background-size
@@ -96,11 +97,18 @@ repeat-y|纵向平铺
 
 实际开发中一般盒子的比例与背景图比例是相同的，此时`contain`和`cover`效果一致。
 
+### 2.4 background-image
+`background-image`有两种常见用法，出了指定`url`设置背景图片外，还可以使用`linear-gradient`设定背景渐变色。
 
-### 2.4 background
+```css
+/*背景色从透明线性渐变到粉色然后再渐变到红色*/
+background-images: linear(transparent,pink,red)
+```
+
+### 2.5 background
 背景相关属性的连写形式：`background：color image repeat position/size`。四个属性顺序没有强制要求，但建议顺序如上，可以按照需求省略。
 
-### 2.5 精灵图
+### 2.6 精灵图
 浏览器访问一个网站时，同一张图一般会加载一次后缓存在本地，多次使用时也不会重新加载。以此原理，我们经常将项目中相关的小图标合并为一张大图，并作为背景图使用在不同的位置，此称之为精灵图。精灵图不会总体图标尺寸，但可以减少网页发送网络请求的次数，减轻服务器的压力，提高页面加载速度。
 
 使用精灵图步骤如下：
@@ -375,36 +383,9 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 ### 7.7 元素整体透明度
 `opacity`属性用于控制某元素整体（包括内容）一起变透明。属性值：0~1之间的数字，1表示完全不透明，0表示我完全透明。
 
-### 7.8 过渡
-`transition`属性可以元素的样式慢慢的变化，常配合`hover`使用，增强网页交互体验。
-
-参数与取值如下表：
-
-参数|取值
-:-|:-
-过渡的属性|`all`：所有能过渡的属性都过渡; 具体属性名如：`width`,只有width有过渡
-过渡的时长|数字+s（秒）
 
 
-使用步骤如下：
-* 默认状态 和 hover状态样式不同，才能有过渡效果。
-* transition属性给需要过渡的**元素本身**加
-
-```css
-/* 鼠标悬浮时实现宽度和背景色过渡变化效果 */
-.box{
-  width:100px;
-  backgroud-color:red;
-  /* transition:width 1s,backgroud-color 2s */
-  transition: all 1s;
-}
-.box:hover{
-  width:120px;
-  backgroud-color:pink;
-}
-```
-
-## 8. 其他
+## 8. 其它样式
 * 行内元素
 
     行内元素不能设置宽高，设置了也不会起作用。除非修改显示模式我块级方式。**浏览器渲染行内元素或者行内块元素时，如果标签换行书写会产生一个空格的距离。解决方案是使用浮动。**
@@ -493,3 +474,332 @@ auto|根据是否溢出，自动显示或隐藏滚动条
   ```html
   <link rel="shortcut icon href="favicon.ico" type="image/x-icon">
   ```
+
+## 9. 过渡(transition)
+`transition`属性可以元素的样式慢慢的变化，常配合`hover`使用，增强网页交互体验。
+
+参数与取值如下表：
+
+参数|取值
+:-|:-
+过渡的属性|`all`：所有能过渡的属性都过渡; 具体属性名如：`width`,只有width有过渡
+过渡的时长|数字+s（秒）
+
+
+使用步骤如下：
+* 默认状态 和 hover状态样式不同，才能有过渡效果。
+* transition属性给需要过渡的**元素本身**加
+
+```css
+/* 鼠标悬浮时实现宽度和背景色过渡变化效果 */
+.box{
+  width:100px;
+  backgroud-color:red;
+  /* transition:width 1s,backgroud-color 2s */
+  transition: all 1s;
+}
+.box:hover{
+  width:120px;
+  backgroud-color:pink;
+}
+```
+
+## 10. 转换(transform)
+`transform`属性可以控制元素的转换（位移、旋转、缩放等）。
+### 10.1 位移(translate)
+使用`translate`可以实现元素位移效果。
+
+语法为：`transform: translate(水平移动距离, 垂直移动距离);`
+
+取值为像素单位或者百分比（相对于元素自身尺寸），数值正负均可。如果只给出一个值, 表示x轴方向移动距离。单独设置某个方向的移动距离：`translateX()` & `translateY()`。
+
+#### 案例1：使用`translate`快速实现绝对定位元素的居中效果
+<iframe src="https://frontend-demo.a-nomad.com/transform_translate_centering/index.html" style="margin-top:20px;width:360px;height:270px;border:0" scrolling="no" />
+
+```html
+<style>
+  .father {
+      position: relative;
+      width: 360px;
+      height: 270px;
+      background-color: pink;
+  }
+
+  .son {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+
+      /* 通过边距计算 实现绝对定位元素居中
+      margin-left: -100px;
+      margin-top: -75px; */
+
+      /*通过位移 快速实现绝对定位元素居中*/
+      transform: translate(-50%, -50%);
+
+      width: 120px;
+      height: 90px;
+      background-color: skyblue;
+  }
+</style>
+<div class="father">
+    <div class="son"></div>
+</div>
+```
+
+#### 案例2：双开门效果
+<iframe src="https://frontend-demo.a-nomad.com/transform_translate_open_door/index.html" style="margin-top:20px;width:100%;height:325px;border:0" scrolling="no" />
+
+```html
+<style>
+    .container {
+        margin: 0 auto;
+        width: 740px;
+        height: 325px;
+        background-image: url(./images/bg.jpg);
+        background-size: cover;
+        overflow: hidden;
+    }
+
+    .container::before,
+    .container::after {
+        float: left;
+
+        content: '';
+        width: 50%;
+        height: 100%;
+        background-color: #ccc;
+        background-image: url(./images/fm.jpg);
+        background-size: cover;
+        transition: all .5s;
+    }
+
+    .container::after {
+        background-position: right 0;
+    }
+
+    .container:hover::before {
+        transform: translate(-100%);
+    }
+
+    .container:hover::after {
+        transform: translate(100%);
+    }
+</style>
+<div class="container"></div>
+```
+
+### 10.2 旋转（rotate）
+使用`translate`可以实现元素旋转效果。
+
+语法为：`transform: rotate(角度)`;
+
+取值为正, 则顺时针旋转。取值为负, 则逆时针旋转。角度单位是`deg`。
+
+使用`transform-origin:原点水平位置 原点垂直位置;`属性改变转换原点，默认圆点是盒子中心点。取值可以是方位名词（left、top、right、bottom、center）或像素单位数值或者百分比（参照盒子自身尺寸计算）。
+
+#### 案例1：风车旋转
+
+<iframe src="https://frontend-demo.a-nomad.com/transform_rotate_windmill/index.html" style="width:200px;height:200px;border:0" scrolling="no" />
+
+```html
+<style>
+    img {
+        width: 200px;
+        height: 200px;
+        transition: all 1s;
+    }
+    img:hover{
+        transform: rotate(360deg);
+    }
+</style>
+<img src="./images/windmill.png">
+```
+
+#### 案例2：多重转换-轮胎滚动
+
+<iframe src="https://frontend-demo.a-nomad.com/transform_tire_rolling/index.html" style="margin-top:20px;width:100%;height:180px;border:0;overflow: hidden;" scrolling="no" />
+
+```html
+<style>
+    .container {
+        width: 740px;
+        height: 180px;
+    }
+    .container img{
+        height: 180px;
+        transition: all .6s;
+    }
+    .container:hover img{
+        /* 旋转会改变网页元素的坐标轴向，先写旋转，则后面的转换效果的轴向以旋转后的轴向为准，会影响转换结果，所以一般会将旋转放在最后 */
+        transform: translate(560px) rotate(356.5deg);
+    }
+</style>
+<div class="container">
+    <img src="./images/tyre.png">
+</div>
+```
+**旋转会改变网页元素的坐标轴向**，先写旋转，则后面的转换效果的轴向以旋转后的轴向为准，会影响转换结果，所以一般会将旋转放在最后。
+
+
+### 10.3 缩放(scale)
+使用`scale`可以实现元素缩放效果。
+
+语法为：`transform:scale(x轴缩放倍数, y轴缩放倍数);`，一般情况下, 只为scale设置一个值, 表示x轴和y轴等比例缩放，scale值大于1表示放大, scale值小于1表示缩小。
+
+通过过渡修改元素尺寸也可以实现缩放效果，但是以元素左上角为中心点的无法修改，常见的缩放效果都是基于元素中心的，所以通过`scale`实现缩放更加理想和方便。
+
+案例：和平精英效果
+
+<iframe src="https://frontend-demo.a-nomad.com/transform_scale/index.html" style="margin-top:20px;width:300px;height:52px;border:0" scrolling="no" />
+
+```html
+<style>
+    li {
+        list-style: none;
+        width: 300px;
+    }
+
+    .picture {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .picture img {
+        display: block;
+        width: 300px;
+    }
+
+    .picture::after {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(5);
+        transition: all .3s;
+
+        content: '';
+        width: 58px;
+        height: 58px;
+        background-image: url(./images/play.png);
+        opacity: 0;
+    }
+
+    .game:hover .picture::after {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+</style>
+<ul>
+    <li class="game">
+        <div class="picture"><img src="./images/party.jpg"></div>
+        <h3>【和平精英】“初火”音乐概念片：四圣觉醒......</h3>
+    </li>
+</ul>
+```
+
+### 10.4 华为2D变换案例
+
+<iframe src="https://frontend-demo.a-nomad.com/transform_huawei/index.html" style="margin-top:20px;width:100%;height:169px;border:0" scrolling="no" />
+
+```html
+<style>
+    li {
+        position: relative;
+        float: left;
+
+        margin-right: 10px;
+        list-style: none;
+    }
+
+    li a {
+        color: white;
+    }
+
+    .picture {
+        height: 169px;
+        overflow: hidden;
+        background-color: red;
+    }
+
+    .picture img {
+        width: 240px;
+    }
+
+    .picture::after {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        content: '';
+        width: 240px;
+        height: 169px;
+        background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+        opacity: 0;
+    }
+
+    .desc {
+        position: absolute;
+        bottom: -45px;
+        padding: 20px;
+    }
+
+    .desc h4 {
+        font-size: 13px;
+    }
+
+    .desc p {
+        font-size: 11px;
+        margin-top: 20px;
+    }
+
+    .desc,
+    .picture img,
+    .picture::after {
+        transition: all .3s;
+    }
+
+    li:hover .desc {
+        transform: translateY(-40px);
+    }
+
+    li:hover .picture img {
+        transform: scale(1.2);
+    }
+
+    li:hover .picture::after {
+        opacity: 1;
+    }
+</style>
+<ul>
+    <li>
+        <a href="#">
+            <div class="picture"><img src="./images/huawei1.jpeg"></div>
+            <div class="desc">
+                <h4>产品</h4>
+                <h5>OceanStor Pacific 海量存储斩获2021 Interop金奖</h5>
+                <p>了解更多 &gt;</p>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <div class="picture"><img src="./images/huawei2.jpeg"></div>
+            <div class="desc">
+                <h4>行业洞察</h4>
+                <h5>迈向智能世界2030</h5>
+                <p>了解更多 &gt;</p>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <div class="picture"><img src="./images/huawei3.jpeg"></div>
+            <div class="desc">
+                <h4>《ICT新视界》刊首语</h4>
+                <h5>笃行致远，共建幸福智慧城市</h5>
+                <p>了解更多 &gt;</p>
+            </div>
+        </a>
+    </li>
+</ul>
+```
