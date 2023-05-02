@@ -15,15 +15,15 @@
 
 #### 1.2.2 字体系列
 常见字体系列有以下三种：
-* 无衬线字体（sans-serif）
+* 无衬线字体（`sans-serif`）
   1. 特点：文字笔画粗细均匀，并且首尾无装饰
   2. 场景：网页中大多采用无衬线字体
   3. 常见该系列字体：黑体、Arial
-* 衬线字体（serif）
+* 衬线字体（`serif`）
   1. 特点：文字笔画粗细不均，并且首尾有笔锋装饰
   2. 场景：报刊书籍中应用广泛
   3. 常见该系列字体：宋体、Times New Roman
-* 等宽字体（monospace）
+* 等宽字体（`monospace`）
   1. 特点：每个字母或文字的宽度相等
   2. 场景：一般用于程序代码编写，有利于代码的阅读和编写
   3. 常见该系列字体：Consolas、fira code
@@ -39,26 +39,26 @@
 ### 1.3 缩进与装饰
 #### 1.3.1 文字缩进
 `text-indent`属性控制文字缩进，单位`px`或`em`（推荐）。
-1em = 当前标签的font-size的动态大小。文字缩进两个字，那直接设置`text-indent:2em;`即可。
+`1em` = 当前标签的`font-size`的动态大小。文字缩进两个字，那直接设置`text-indent:2em;`即可。
 
 #### 1.3.2 文本修饰
 `text-decoration`属性用于控制文字装饰线，可选属性如下。
 
 属性值|效果
 :-|:-
-none|无装饰线
-underline|下划线
-overline|上划线
-line-through|删除线
+`none`|无装饰线
+`underline`|下划线
+`overline`|上划线
+`line-through`|删除线
 
 #### 1.3.3 文字阴影
 `text-shadow`属性用于控制文字阴影效果。可选属性如下。
 属性值|效果
 :-|:-
-h-shadow|必须，水平偏移量。允许负值
-v-shadow|必须，垂直偏移量。允许负值
-blur|可选，模糊度
-color|可选，阴影颜色
+`h-shadow`|必须，水平偏移量。允许负值
+`v-shadow`|必须，垂直偏移量。允许负值
+`blur``|可选，模糊度
+`color`|可选，阴影颜色
 
 ### 1.4 行高
 `line-height`属性用于控制一行的上下行间距，设置数字+`px`表示行高为具体高度，如果不带单位直接设置数字则表示当前标签字号的倍数（可以为小数）。
@@ -73,10 +73,10 @@ color|可选，阴影颜色
 
 取值|效果
 :-|:-
-repeat|（默认值）水平和垂直方向都平铺
-no-repeat|不平铺
-repeat-x|横向平铺
-repeat-y|纵向平铺
+`repeat`|（默认值）水平和垂直方向都平铺
+`no-repeat`|不平铺
+`repeat-x`|横向平铺
+`repeat-y`|纵向平铺
 
 ### 2.2 background-position
 `background-position`属性用于控制标签背景位置。语法如下：
@@ -100,7 +100,7 @@ repeat-y|纵向平铺
 ### 2.4 background-image
 `background-image`有两种常见用法，出了指定`url`设置背景图片外，还可以使用`linear-gradient`设定背景渐变色。
 
-```css
+```css{2}
 /*背景色从透明线性渐变到粉色然后再渐变到红色*/
 background-images: linear(transparent,pink,red)
 ```
@@ -146,10 +146,10 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
     
     选择器|说明
     :-|:-
-    a:link|选中a链接 未访问过的状态
-    a:visited|选中a链接访问之后 的状态
-    a:hover|选中鼠标悬停的状态
-    a:active|选中鼠标按下的状态
+    `a:link`|选中`a`链接 未访问过的状态
+    `a:visited`|选中`a`链接访问之后 的状态
+    `a:hover`|选中鼠标悬停的状态
+    `a:active`|选中鼠标按下的状态
 
     如果需要同时实现以上四种伪类状态效果，需要按照 `LVHA` 顺序书写。
 
@@ -159,20 +159,20 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
     选择器|说明
     :-|:-
-    E:first-child|匹配父元素中第一个子元素，并且是E元素
-    E:last-child|匹配父元素中最后一个子元素，并且是E元素
-    E:nth-child(n)|匹配父元素中第n个子元素，并且是E元素
-    E:nth-last-child(n)|匹配父元素中倒数第n个子元素，并且是E元素
-    E:nth-of-type(n)|只在父元素的同类型(E)子元素范围中，匹配第n个
+    `E:first-child`|匹配父元素中第一个子元素，并且是E元素
+    `E:last-child`|匹配父元素中最后一个子元素，并且是E元素
+    `E:nth-child(n)`|匹配父元素中第n个子元素，并且是E元素
+    `E:nth-last-child(n)`|匹配父元素中倒数第n个子元素，并且是E元素
+    `E:nth-of-type(n)`|只在父元素的同类型(E)子元素范围中，匹配第n个
 
     结构伪类选择器中`n`可以是数字表示第几个，也可以是公式
     工时|功能
     :-|:-
-    2n、even|偶数
-    2n+1、2n-1、odd|奇数
-    3n|3的倍数个元素（3,6,9...）
-    -n+5|找到前五个
-    n+5|第五个之后所有元素
+    `2n`、`even`|偶数
+    `2n+1`、`2n-1`、`odd`|奇数
+    `3n`|3的倍数个元素（3,6,9...）
+    `-n+5`|找到前五个
+    `n+5`|第五个之后所有元素
 
 * 属性选择器
   
@@ -180,18 +180,18 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
     选择器|说明
     :-|:-
-    E[attr]|选择具有`attr`属性的E元素
-    E[attr="val"]|选择具有`attr`属性并且属性值等于`val`的E元素
+    `E[attr]`|选择具有`attr`属性的E元素
+    `E[attr="val"]`|选择具有`attr`属性并且属性值等于`val`的E元素
 
 ## 4. 盒模型
 *  盒尺寸
   
-    每个盒子的宽高设置的是内容区域的尺寸，实际尺寸则是内容+padding+border。如果要设置宽高为实际盒子尺寸可以手动减去border和padding的尺寸，或者使用CSS3的`box-sizing:border-box;`启用内减模式即可。
+    每个盒子的宽高设置的是内容区域的尺寸，实际尺寸则是`内容+padding+border`。如果要设置宽高为实际盒子尺寸可以手动减去`border`和`padding`的尺寸，或者使用CSS3的`box-sizing:border-box;`启用内减模式即可。
   
 * 清除默认内外边距
   
-  浏览器会默认给部分标签设置默认的margin和padding。body标签默认有margin：8px。p标签默认有上下的margin。ul标签默认由上下的margin和padding-left。
-  ```css
+  浏览器会默认给部分标签设置默认的`margin`和`padding`。`body`标签默认有`margin：8px`。`p`标签默认有上下的`margin`。`ul`标签默认由上下的`margin`和`padding-left`。
+  ```css{1-4}
   * {
     margin:0;
     padding:0;
@@ -199,14 +199,14 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
   ```
 
 * 边距计算
-  * 正常情况。水平布局的盒子，左右的margin正常，互不影响。最终两者距离为左右margin的和
-  * 合并现象。垂直布局的块级元素，上下的margin会合并。最终两者距离为margin的最大值。
-  * 塌陷现象。互相嵌套的块级元素，子元素的margin-top会作用在父元素上。导致父元素一起往下移动。解决方法如下：
-    * 给父元素设置border-top 或者 padding-top（分隔父子元素的margin-top）
-    * 给父元素设置overflow：hidden
+  * 正常情况。水平布局的盒子，左右的`margin`正常，互不影响。最终两者距离为左右`margin`的和
+  * 合并现象。垂直布局的块级元素，上下的`margin`会合并。最终两者距离为`margin`的最大值。
+  * 塌陷现象。互相嵌套的块级元素，子元素的`margin-top`会作用在父元素上。导致父元素一起往下移动。解决方法如下：
+    * 给父元素设置`border-top` 或者 `padding-top`（分隔父子元素的`margin-top`）
+    * 给父元素设置`overflow：hidden`
     * 转换成行内块元素
     * 设置浮动
-  * 行内元素的margin和padding无效情况无法修改其垂直位置。如果要修改其垂直位置可以通过修改其显示模式或者设置行高。
+  * 行内元素的`margin`和`padding`无效情况无法修改其垂直位置。如果要修改其垂直位置可以通过修改其显示模式或者设置行高。
 
 * 盒子阴影
   
@@ -214,12 +214,12 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
     参数|作用
     :-|:-
-    h-shadow|必须，水平偏移量。允许负值
-    v-shadow|必须，垂直偏移量。允许负值
-    blur|可选，模糊度
-    spread|可选，阴影扩大
-    color|可选，阴影颜色
-    inset|可选，将阴影改为内部阴影
+    `h-shadow`|必须，水平偏移量。允许负值
+    `v-shadow`|必须，垂直偏移量。允许负值
+    `blur`|可选，模糊度
+    `spread`|可选，阴影扩大
+    `color`|可选，阴影颜色
+    `inset`|可选，将阴影改为内部阴影
 
 * 边框三角形
 
@@ -253,7 +253,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 * 单伪元素清除法
   * 操作:用伪元素替代了额外标签。原理与额外标签法一致，只是不在HTML中声明实体标签而已。
   * 优点：项目中使用，直接给标签加类即可清除浮动
-  ```css
+  ```css{1-4}
   .clearfix::after{
     content:'';
     display:block;
@@ -265,7 +265,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
   ```
 * 双伪元素清除法
   * 作用：在单伪元素清除法的基础上，通过修改元素的显示模式来避免了外边距塌陷问题。
-  ```css  
+  ```css{4,7}  
   .clearfix::before,
   .clearfix::after{
     content:'';
@@ -278,8 +278,8 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
   }
   ```
   * 优点：项目中使用，直接给标签加类即可清除浮动，同事解决外边距塌陷问题。
-* 给父元素设置overflow : hidden
-  * 操作：直接给父元素设置 overflow : hidden
+* 给父元素设置`overflow : hidden`
+  * 操作：直接给父元素设置 `overflow : hidden`
   * 优点：方便
 
 ## 6. 定位
@@ -316,10 +316,10 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
 定位方式|属性值|相对移动基准|是否占位
 :-|:-|:-|:-
-静态定位|static|不能通过方位属性移动|占位置
-相对定位|relative|相对于自己原来的位置|占位置
-绝对地位|absolute|相对于最近的且有定位的祖先元素移动|不占位置（脱标）
-固定定位|fixed|相对于浏览器可视区域|不占位置（脱标）
+静态定位|`static`|不能通过方位属性移动|占位置
+相对定位|`relative`|相对于自己原来的位置|占位置
+绝对地位|`absolute`|相对于最近的且有定位的祖先元素移动|不占位置（脱标）
+固定定位|`fixed`|相对于浏览器可视区域|不占位置（脱标）
 
 ### 6.4 元素层级
 * 不同布局方式元素的层级关系：`标准流 < 浮动 < 定位`。
@@ -339,10 +339,10 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 我们可以通过`vertical-align`属性来定义垂直对齐方式，其取值与效果如下表：
 属性值|效果
 :-|:-
-baseline|默认，基线对齐
-top|顶部对齐
-middle|居中对齐
-bottom|底部对齐
+`baseline`|默认，基线对齐
+`top`|顶部对齐
+`middle`|居中对齐
+`bottom`|底部对齐
 
 一般`vertical-algin`用于解决如下问题：
 * 文本框和表单按钮无法对齐问题（`vertical-align:middle`）
@@ -355,10 +355,10 @@ bottom|底部对齐
 `cursor`属性用于设置鼠标光标在元素上时显示的样式。常见属性值如下表：
 属性值|效果
 :-|:-
-default|默认值，通常是箭头
-pointer|小手效果，提示用户可以点击
-text|工字型，提示用户可以选择文字
-move|十字光标，提示用户可以移动
+`default`|默认值，通常是箭头
+`pointer`|小手效果，提示用户可以点击
+`text`|工字型，提示用户可以选择文字
+`move`|十字光标，提示用户可以移动
 
 ### 7.4 边框圆角
 `border-radius`属性用于设置盒子边框圆角，取值单位可以是`px`或者百分比。赋值规则：从左上角开始赋值，然后顺时针赋值，没有赋值的看对角！
@@ -372,18 +372,16 @@ move|十字光标，提示用户可以移动
 `overflow`用于控制内容溢出部分的显示效果。可选属性值如下表：
 属性值|效果
 :-|:-
-visible|默认值，溢出部分可见
-hidden|溢出部分隐藏
-scroll|无论是否溢出，都显示滚动条
-auto|根据是否溢出，自动显示或隐藏滚动条
+`visible`|默认值，溢出部分可见
+`hidden`|溢出部分隐藏
+`scroll`|无论是否溢出，都显示滚动条
+`auto`|根据是否溢出，自动显示或隐藏滚动条
 
 ### 7.6 元素隐藏
 让某元素本身在屏幕中不可见。如：鼠标悬浮之后元素隐藏。隐藏元素一般可以使用`visibility：hidden`或者`display：none`两种方式实现，区别在于隐藏元素后，前者仍然会占位置，而后者则不占位置，故而后者使用较多。
 
 ### 7.7 元素整体透明度
 `opacity`属性用于控制某元素整体（包括内容）一起变透明。属性值：0~1之间的数字，1表示完全不透明，0表示我完全透明。
-
-
 
 ## 8. 其它样式
 * 行内元素
@@ -398,11 +396,11 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 
 * CSS继承
 
-  子元素有默认继承父元素样式的特点。如果元素有浏览器默认样式，此时继承性依然存在，但是优先显示浏览器的默认样式，如a标签的color，h系列标签的font-size都会优先被浏览器默认样式覆盖。
+  子元素有默认继承父元素样式的特点。如果元素有浏览器默认样式，此时继承性依然存在，但是优先显示浏览器的默认样式，如`a`标签的`color`，`h`系列标签的`font-size`都会优先被浏览器默认样式覆盖。
 
 * CSS优先级
 
-  不同选择器具有不同的优先级，优先级高的选择器样式会覆盖优先级低选择器样式。`继承 < 通配符选择器 < 标签选择器 < 类选择器 < id选择器 < 行内样式 < !important`。!important写在属性值的后面，分号的前面！!important不能提升继承的优先级。
+  不同选择器具有不同的优先级，优先级高的选择器样式会覆盖优先级低选择器样式。`继承 < 通配符选择器 < 标签选择器 < 类选择器 < id选择器 < 行内样式 < !important`。!important写在属性值的后面，分号的前面！`!important`不能提升继承的优先级。
 
   如果是复合选择器，此时需要通过权重叠加计算方法，判断最终哪个选择器优先级最高会生效。
   ![CSS权重叠加计算](https://s2.loli.net/2023/04/27/FJobGlZEROqPwgN.jpg)
@@ -415,7 +413,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
   
   伪元素默认是行内元素，**必须设置`content`属性设置元素内容才能生效**。伪元素也是标签，所以可以使用常见的css样式进行设置。
 
-  ```css
+  ```css{5,6}
     /* 将li标签的小圆点替换为天蓝色小箭头 */
     ul{
         list-style: none;
@@ -426,16 +424,16 @@ auto|根据是否溢出，自动显示或隐藏滚动条
         margin-right: 10px;
     }
   ```
-  `::placeholder`伪元素用于选择一个表单元素的占位文本，它允许开发者和设计师自定义占位文本的样式。123 例如，可以使用 ::placeholder 伪元素来改变 input 元素的占位符文本的颜色、字体大小等样式。
+  `::placeholder`伪元素用于选择一个表单元素的占位文本，它允许开发者和设计师自定义占位文本的样式。例如，可以使用 `::placeholder` 伪元素来改变 `input` 元素的占位符文本的颜色、字体大小等样式。
 
 
 * CSS书写顺序
   
   CSS建议采用如下顺序书写，更加规范且浏览器渲染效率更高。
   
-  1. 布局控制： display float position
-  2. 盒子模型： margin border padding width height background 
-  3. 文字样式： text-align等
+  1. 布局控制： `display float position`
+  2. 盒子模型： `margin border padding width height background` 
+  3. 文字样式： `text-align`等
 
   顺序|类别|属性
   :-|:-|:-
@@ -452,7 +450,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 * Logo SEO
 
   一般情况下为了SEO，我们会使用`h1>a+链接文字(字号为0)+logo背景图`的结果来定义logo部分。
-  ```css
+  ```css{5,8}
   .logo h1 a{
     display:block;
     width:270px;
@@ -471,7 +469,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 * favicon
   
   一般情况下我们会在网站根目录下放置一个名为`favicon.ico`的文件，然后通过如下代码引入网页，此图标会显示在网页标题栏最左侧。
-  ```html
+  ```html{1}
   <link rel="shortcut icon href="favicon.ico" type="image/x-icon">
   ```
 
@@ -482,13 +480,13 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 
 参数|取值
 :-|:-
-过渡的属性|`all`：所有能过渡的属性都过渡; 具体属性名如：`width`,只有width有过渡
+过渡的属性|`all`：所有能过渡的属性都过渡; 具体属性名如：`width`,只有`width`有过渡
 过渡的时长|数字+s（秒）
 
 
 使用步骤如下：
-* 默认状态 和 hover状态样式不同，才能有过渡效果。
-* transition属性给需要过渡的**元素本身**加
+* 默认状态 和 `hover`状态样式不同，才能有过渡效果。
+* `transition`属性给需要过渡的**元素本身**加
 
 ```css
 /* 鼠标悬浮时实现宽度和背景色过渡变化效果 */
@@ -516,7 +514,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 #### 案例1：使用`translate`快速实现绝对定位元素的居中效果
 <iframe src="https://frontend-demo.a-nomad.com/transform_translate_centering/index.html" style="margin-top:20px;width:360px;height:270px;border:0" scrolling="no" />
 
-```html
+```html{10,19}
 <style>
   .father {
       position: relative;
@@ -550,7 +548,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 #### 案例2：双开门效果
 <iframe src="https://frontend-demo.a-nomad.com/transform_translate_open_door/index.html" style="margin-top:20px;width:100%;height:325px;border:0" scrolling="no" />
 
-```html
+```html{21,28-30,32-34}
 <style>
     .container {
         margin: 0 auto;
@@ -596,13 +594,13 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 
 取值为正, 则顺时针旋转。取值为负, 则逆时针旋转。角度单位是`deg`。
 
-使用`transform-origin:原点水平位置 原点垂直位置;`属性改变转换原点，默认圆点是盒子中心点。取值可以是方位名词（left、top、right、bottom、center）或像素单位数值或者百分比（参照盒子自身尺寸计算）。
+使用`transform-origin:原点水平位置 原点垂直位置;`属性改变转换原点，默认圆点是盒子中心点。取值可以是方位名词（`left、top、right、bottom、center`）或像素单位数值或者百分比（参照盒子自身尺寸计算）。
 
 #### 案例1：风车旋转
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_rotate_windmill/index.html" style="width:200px;height:200px;border:0" scrolling="no" />
 
-```html
+```html{5,8}
 <style>
     img {
         width: 200px;
@@ -620,7 +618,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_tire_rolling/index.html" style="margin-top:20px;width:100%;height:180px;border:0;overflow: hidden;" scrolling="no" />
 
-```html
+```html{8,10-13}
 <style>
     .container {
         width: 740px;
@@ -645,7 +643,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 ### 10.3 缩放(scale)
 使用`scale`可以实现元素缩放效果。
 
-语法为：`transform:scale(x轴缩放倍数, y轴缩放倍数);`，一般情况下, 只为scale设置一个值, 表示x轴和y轴等比例缩放，scale值大于1表示放大, scale值小于1表示缩小。
+语法为：`transform:scale(x轴缩放倍数, y轴缩放倍数);`，一般情况下, 只为`scale`设置一个值, 表示x轴和y轴等比例缩放，`scale`值大于1表示放大, `scale`值小于1表示缩小。
 
 通过过渡修改元素尺寸也可以实现缩放效果，但是以元素左上角为中心点的无法修改，常见的缩放效果都是基于元素中心的，所以通过`scale`实现缩放更加理想和方便。
 
@@ -653,7 +651,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_scale/index.html" style="width:300px;height:221px;border:0" scrolling="no" />
 
-```html
+```html{17-18,21-22,31-34}
 <style>
     li {
         list-style: none;
@@ -701,7 +699,7 @@ auto|根据是否溢出，自动显示或隐藏滚动条
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_huawei/index.html" style="margin-top:20px;width:100%;height:169px;border:0" scrolling="no" />
 
-```html
+```html{32-33,51-55,57-59,61-63,65-67}
 <style>
     li {
         position: relative;
