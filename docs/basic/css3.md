@@ -503,15 +503,17 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 ```
 
 ## 10. 转换(transform)
-`transform`属性可以控制元素的转换（位移、旋转、缩放等）。
-### 10.1 位移(translate)
+`transform`属性可以控制元素的转换（位移、旋转、缩放等）。实际开发中常用额转为为2D平面转换，当然少数情况下
+也会使用3D转换。
+### 10.1 平面转换
+#### 10.1.1 位移(translate)
 使用`translate`可以实现元素位移效果。
 
 语法为：`transform: translate(水平移动距离, 垂直移动距离);`
 
 取值为像素单位或者百分比（相对于元素自身尺寸），数值正负均可。如果只给出一个值, 表示x轴方向移动距离。单独设置某个方向的移动距离：`translateX()` & `translateY()`。
 
-#### 案例1：使用`translate`快速实现绝对定位元素的居中效果
+##### 案例1：使用`translate`快速实现绝对定位元素的居中效果
 <iframe src="https://frontend-demo.a-nomad.com/transform_translate_centering/index.html" style="margin-top:20px;width:360px;height:270px;border:0" scrolling="no" />
 
 ```html{10,19}
@@ -545,7 +547,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 </div>
 ```
 
-#### 案例2：双开门效果
+##### 案例2：双开门效果
 <iframe src="https://frontend-demo.a-nomad.com/transform_translate_open_door/index.html" style="margin-top:20px;width:100%;height:325px;border:0" scrolling="no" />
 
 ```html{21,28-30,32-34}
@@ -587,7 +589,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 <div class="container"></div>
 ```
 
-### 10.2 旋转（rotate）
+#### 10.1.2 旋转（rotate）
 使用`translate`可以实现元素旋转效果。
 
 语法为：`transform: rotate(角度)`;
@@ -596,7 +598,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
 使用`transform-origin:原点水平位置 原点垂直位置;`属性改变转换原点，默认圆点是盒子中心点。取值可以是方位名词（`left、top、right、bottom、center`）或像素单位数值或者百分比（参照盒子自身尺寸计算）。
 
-#### 案例1：风车旋转
+##### 案例1：风车旋转
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_rotate_windmill/index.html" style="width:200px;height:200px;border:0" scrolling="no" />
 
@@ -614,7 +616,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 <img src="./images/windmill.png">
 ```
 
-#### 案例2：多重转换-轮胎滚动
+##### 案例2：多重转换-轮胎滚动
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_tire_rolling/index.html" style="margin-top:20px;width:100%;height:180px;border:0;overflow: hidden;" scrolling="no" />
 
@@ -640,14 +642,14 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 **旋转会改变网页元素的坐标轴向**，先写旋转，则后面的转换效果的轴向以旋转后的轴向为准，会影响转换结果，所以一般会将旋转放在最后。
 
 
-### 10.3 缩放(scale)
+#### 10.1.3 缩放(scale)
 使用`scale`可以实现元素缩放效果。
 
 语法为：`transform:scale(x轴缩放倍数, y轴缩放倍数);`，一般情况下, 只为`scale`设置一个值, 表示x轴和y轴等比例缩放，`scale`值大于1表示放大, `scale`值小于1表示缩小。
 
 通过过渡修改元素尺寸也可以实现缩放效果，但是以元素左上角为中心点的无法修改，常见的缩放效果都是基于元素中心的，所以通过`scale`实现缩放更加理想和方便。
 
-案例：和平精英效果
+##### 案例：和平精英效果
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_scale/index.html" style="width:300px;height:221px;border:0" scrolling="no" />
 
@@ -695,7 +697,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 </ul>
 ```
 
-### 10.4 华为2D变换案例
+#### 10.1.4 华为2D变换案例
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_huawei/index.html" style="margin-top:20px;width:100%;height:169px;border:0" scrolling="no" />
 
@@ -801,3 +803,227 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
     </li>
 </ul>
 ```
+
+### 10.2 空间转换
+除了常用的平面转为，使用`transform`属性也可以实现元素在空间内的位移、旋转、缩放等效果。空间转换也叫3D转换。空间是从坐标轴角度定义的，x 、y 、z三条坐标轴构成了一个立体空间，z轴位置与视线方向相同。
+
+![空间坐标系](https://s2.loli.net/2023/05/02/ZvdFlzNoyOa37Wj.jpg)
+
+#### 10.2.1 空间位移
+`transform: translate3d(x, y, z);`或`transform: translateZ(值);`两种方式都可以实现元素在z轴上的位移。
+
+正常情况下我们正对屏幕，相当于面对z轴俯视的角度。所以沿z轴位移的元素并不能看出有任何变化，但我们可以给**元素父级**添加`perspective`属性来开启透视效果，透视效果可以为元素添加**近大远小**的视觉效果，并不会改变元素实际大小。`perspective`取值为像素单位，建议数值在`800-1200`之间比较符合人眼的真实体验，这个数值称为透视距离也称为视距，表示人的眼睛到屏幕的距离。
+
+<iframe src="https://frontend-demo.a-nomad.com/transform_translatez/index.html" style="width:200px;height:200px;border:0" scrolling="no" />
+
+```html{3,10,13-14}
+<style>
+    body{
+        perspective: 1000px;
+    }
+    div {
+        margin: 50px auto;
+        width: 100px;
+        height: 100px;
+        background-color: skyblue;
+        transition: all .5s;
+    }
+    div:hover{
+        /* transform: translateZ(150px); */
+        transform:translate3d(25px,50px,75px);
+    }
+</style>
+<body>
+    <div></div>
+</body>
+```
+
+#### 10.2.2 空间旋转
+`transform: rotate3d(x, y, z, 角度);`或`transform: rotateZ(值);`两种方式都可以实现元素在z轴上的旋转。
+
+默认情况下使用`rotate`只提供一个值时就是沿着z轴旋转的，不同轴向的旋转方向可以根据左手法则判断。手握坐标轴，手指弯曲的方向就是旋转方向，大拇指指向的就是该轴的正向。
+
+![空间旋转之左手法则](https://s2.loli.net/2023/05/02/P7WLEnqRcsbCF4h.jpg)
+
+<iframe src="https://frontend-demo.a-nomad.com/transform_rotate_3d/index.html" style="width:100%;height:250px;border:0" scrolling="no" />
+
+```html{3,14,18,22}
+<style>
+  div {
+      transform-style: preserve-3d;
+  }
+
+  img {
+      margin-top: 50px;
+      margin-right: 20px;
+      width: 200px;
+      transition: all .5s;
+  }
+
+  div:hover .x {
+      transform: rotateX(60deg);
+  }
+
+  div:hover .y {
+      transform: rotateY(60deg);
+  }
+
+  div:hover .z {
+      transform: rotateZ(60deg);
+  }
+</style>
+<div>
+  <img class="x" src="./images/hero.jpeg">
+  <img class="y" src="./images/hero.jpeg">
+  <img class="z" src="./images/hero.jpeg">
+</div>
+```
+
+#### 10.2.3 空间缩放
+`transform: scale3d(x, y, z);`或`transform: scaleZ(值);`两种方式都可以实现元素在z轴上的放大缩小。
+开发中空间缩放使用较少。
+
+#### 10.2.4 立体呈现
+`perspective`属性只能增加近大远小的透视效果，并不能呈现立体图形。在父元素添加`transform-style: preserve-3d;`则可以是子元素出于真正的3D空间，借助于次可以通过CSS展现3D图像。
+
+##### 案例：立方体
+<iframe src="https://frontend-demo.a-nomad.com/transform_style/index.html" style="width:300px;height:320px;border:0" scrolling="no" />
+
+```html{4-5,11,25,30,35,40,45,50,55}
+<style>
+    .cube {
+        position: relative;
+        transform: rotateX(-20deg) rotateY(30deg);
+        transform-style: preserve-3d;
+        margin: 60px;
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        line-height: 200px;
+        transition: all 3s;
+    }
+
+    .cube div {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 200px;
+        height: 200px;
+        color: red;
+        opacity: 0.8;
+    }
+
+    .front {
+        transform: translateZ(100px);
+        background-color: greenyellow;
+    }
+
+    .back {
+        transform: translateZ(-100px);
+        background-color: green;
+    }
+
+    .left {
+        transform: translateX(-100px) rotateY(-90deg);
+        background-color: orange;
+    }
+
+    .right {
+        transform: translateX(100px) rotateY(-90deg);
+        background-color: yellow;
+    }
+
+    .top {
+        transform: translateY(-100px) rotateX(90deg);
+        background-color: skyblue;
+    }
+
+    .bottom {
+        transform: translateY(100px) rotateX(90deg);
+        background-color: blue;
+    }
+
+    body:hover .cube {
+        transform: rotateX(-30deg) rotateY(225deg);
+    }
+</style>
+<div class="cube">
+    <div class="front">前</div>
+    <div class="back">后</div>
+    <div class="left">左</div>
+    <div class="right">右</div>
+    <div class="top">上</div>
+    <div class="bottom">下</div>
+</div>
+```
+
+
+#### 10.2.5 3D导航案例
+
+<iframe src="https://frontend-demo.a-nomad.com/transform_3d_nav/index.html" style="width:300px;height:50px;border:0" scrolling="no" />
+
+```html{17-20,35,40,44}
+<style>
+    ul {
+        margin-top: 10px;
+        width: 300px;
+        height: 40px;
+        list-style: none;
+    }
+
+    li {
+        position: relative;
+        float: left;
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+
+        transition: all .5s;
+        transform-style: preserve-3d;
+        /* 临时旋转，方便在编码过程中3D视角看到效果 */
+        /* transform: rotateX(-20deg) rotateY(30deg); */
+    }
+
+    li a {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: white;
+    }
+
+    li a:first-child {
+        background-color: green;
+        transform: translateZ(20px);
+    }
+
+    li a:last-child {
+        background-color: orange;
+        transform: rotateX(90deg) translateZ(20px);
+    }
+
+    li:hover {
+        transform: rotateX(-90deg);
+    }
+</style>
+<ul>
+    <li>
+        <a href="#">首页</a>
+        <a href="#">Index</a>
+    </li>
+    <li>
+        <a href="#">登录</a>
+        <a href="#">SignIn</a>
+    </li>
+    <li>
+        <a href="#">注册</a>
+        <a href="#">SignUp</a>
+    </li>
+</ul>
+```
+![3dnav.jpg](https://s2.loli.net/2023/05/02/pVcsIFaM2j4w7Gh.jpg)
+
+**空间旋转是中心点3D对象的中心点**，所以以上案例中所有超链接都要位移到距离中心点相同的距离，旋转效果才会自然。
