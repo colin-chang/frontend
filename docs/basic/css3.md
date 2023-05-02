@@ -102,7 +102,7 @@
 
 ```css{2}
 /*背景色从透明线性渐变到粉色然后再渐变到红色*/
-background-images: linear(transparent,pink,red)
+background-images: linear-gradient(transparent,pink,red)
 ```
 
 ### 2.5 background
@@ -472,6 +472,10 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
   ```html{1}
   <link rel="shortcut icon href="favicon.ico" type="image/x-icon">
   ```
+
+* html高度
+
+  默认情况下`html`和`body`标签的宽度都是浏览器窗口100%宽度，高度是0，如果要高度也设置成100%，需要将`html`和`body`高度分别设置100%才可以。
 
 ## 9. 过渡(transition)
 `transition`属性可以元素的样式慢慢的变化，常配合`hover`使用，增强网页交互体验。
@@ -1027,3 +1031,424 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 ![3dnav.jpg](https://s2.loli.net/2023/05/02/pVcsIFaM2j4w7Gh.jpg)
 
 **空间旋转是中心点3D对象的中心点**，所以以上案例中所有超链接都要位移到距离中心点相同的距离，旋转效果才会自然。
+
+## 11. 动画
+通过`transition`属性的过渡效果配合元素`hover`等状态可以实现简单的动画效果，此时动画效果只能两个状态之间切换，如果要实现更精准的动画效果，如多个动画状态、时长控制、速度控制、延迟执行、重复多次、多方向、结束效果、自动触发等就需要借助于`animation`属性来实现动画效果。
+
+### 11.1 基本使用
+实现动画要通过`定义动画`和`使用动画`两个步骤。
+* 定义动画。定义动画有如下两种语法。前者定义了动画的起始和结束两种状态，开发中较为常用。后者则可以定义动画任意进度过程的状态。如果动画的起始状态与元素的默认状态相同则可以直接省略起始状态的代码。
+  
+  ```css
+  @keyframes 动画名称{
+    from {}
+    to {}
+  }
+
+  @keyframes 动画名称{
+    0% {}
+    30% {}
+    ...
+    100%{}
+  }
+  ```
+* 使用动画。动画名称和时长是必要参数，其它均为可选参数，取值不分先后顺序。如果有2个时间值，第一个时间表示动画时长，第二个时间表示延迟时间
+
+  ```css
+  animation：动画名称 动画时长 速度曲线 延迟时间 重复次数 动画方向 执行完毕时状态;
+  ```
+
+### 11.2 动画属性
+`animation`除了可以使用上面提到的复合写法外，也可以拆分成不同动画属性来写，效果一致。下标展示了常用的动画属性。
+
+属性|作用|取值
+:-|:-|:-
+`animation-name`|动画名称|
+`animation-duration`|动画时长|数字(单位s)
+`animation-delay`|延迟时间|数字(单位s)
+`animation-fill-mode`|动画完毕状态|`backwards`:起始状态，`forwards`:结束状态
+`animation-timing-function`|速度曲线|`linear`:线性过渡`,`ease`:平滑过渡(默认值),`ease-in`:由慢到快,`ease-out`:由快到慢,`ease-in-out`:由慢到快再到慢
+`animation-iteration-count`|重复次数|`infinite`:无限循环,正整数表示多少次
+`animation-direction`|是否反向运动|`normal`为正向方向（默认值），`alternate`为正反向交替运动。
+`animation-play-state`|动画播放状态|`running`表示正在播放（默认值），`paused`为暂停，通常配合：`hover`使用
+
+### 11.3 逐帧动画
+逐帧动画一般都会配合精灵图实现，实现步骤如下：
+* 准备显示区域。设置盒子背景图为当前精灵图，尺寸是一张小图的尺寸。
+* 定义动画。改变背景图的位置（移动的距离就是精灵图的宽度）
+* 使用动画。添加速度曲线steps(N)，N与精灵图上小图个数相同。添加无限重复效果
+
+#### 案例：精灵图逐帧动画
+
+<iframe src="https://frontend-demo.a-nomad.com/animation_steps/index.html" style="width:100%;height:140px;border:0" scrolling="no" />
+
+```html{2-11,17-19}
+<style>
+    @keyframes run{
+        to{
+            background-position: -1680px 0px;
+        }
+    }
+    @keyframes move{
+        to{
+            transform: translateX(560px);
+        }
+    }
+    div{
+        width: 140px;
+        height: 140px;
+        background-image: url(./images/bg.png);
+
+        animation: 
+            run 1s steps(12) infinite,
+            move 3s linear forwards;
+    }
+</style>
+<div></div>
+```
+#### 案例：钟表效果
+
+<iframe src="https://frontend-demo.a-nomad.com/animation_clock/index.html" style="margin-top:20px;width:210px;height:210px;border:0" scrolling="no" />
+
+```html{78,90-94}
+<style>
+    .clock {
+        position: relative;
+        border: 5px solid black;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+    }
+
+    .clock div {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+
+    .line {
+        width: 100%;
+        height: 3px;
+        background-color: #ccc;
+        transform: translate(-50%, -50%);
+    }
+
+    .line:nth-child(2) {
+        transform: translate(-50%, -50%) rotate(30deg);
+    }
+
+    .line:nth-child(3) {
+        transform: translate(-50%, -50%) rotate(60deg);
+    }
+
+    .line:nth-child(4) {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .line:nth-child(5) {
+        transform: translate(-50%, -50%) rotate(120deg);
+    }
+
+    .line:nth-child(6) {
+        transform: translate(-50%, -50%) rotate(150deg);
+    }
+
+    .mask {
+        transform: translate(-50%, -50%);
+
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background-color: white;
+
+    }
+
+    .hour,
+    .minute,
+    .second {
+        transform-origin: left center;
+    }
+
+    .hour {
+        width: 40px;
+        height: 6px;
+        background-color: #000;
+        transform: translateY(-50%) rotate(-45deg);
+    }
+
+    .minute {
+        width: 50px;
+        height: 6px;
+        background-color: #000;
+        transform: translateY(-50%);
+    }
+
+    .second {
+        width: 60px;
+        height: 2px;
+        background-color: red;
+        transform: translateY(-50%);
+        animation: clock 60s steps(60) infinite;
+    }
+
+    .screw {
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 12px;
+        height: 12px;
+        background-color: black;
+    }
+
+    @keyframes clock{
+        to{
+            transform: translateY(-50%) rotate(360deg);
+        }
+    }
+</style>
+    <!-- 表盘 -->
+<div class="clock">
+    <!-- 刻度线 -->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+
+    <!-- 遮罩层 -->
+    <div class="mask"></div>
+
+    <!-- 表针 -->
+    <div class="hour"></div>
+    <div class="minute"></div>
+    <div class="second"></div>
+
+    <!-- 螺丝 -->
+    <div class="screw"></div>
+</div>
+```
+
+
+### 11.4 动画案例
+#### 案例：跑马灯
+
+<iframe src="https://frontend-demo.a-nomad.com/animation_marquee/index.html" style="margin-top:20px;width:610px;height:112.5px;border:0" scrolling="no" />
+
+```html{9-11,16,27-31}
+<style>
+    .container {
+        border: 5px solid skyblue;
+        width: 600px;
+        height: 112.5px;
+        overflow: hidden;
+    }
+
+    .container:hover ul {
+        animation-play-state: paused;
+    }
+
+    ul {
+        list-style: none;
+        width: 2000px;
+        animation: marquee 5s infinite linear;
+    }
+
+    .container li {
+        float: left;
+    }
+
+    .container img {
+        width: 200px;
+    }
+
+    @keyframes marquee {
+        to {
+            transform: translate(-1400px);
+        }
+    }
+</style>
+
+<div class="container">
+    <ul>
+        <li><img src="./images/1.jpg" alt="" /></li>
+        <li><img src="./images/2.jpg" alt="" /></li>
+        <li><img src="./images/3.jpg" alt="" /></li>
+        <li><img src="./images/4.jpg" alt="" /></li>
+        <li><img src="./images/5.jpg" alt="" /></li>
+        <li><img src="./images/6.jpg" alt="" /></li>
+        <li><img src="./images/7.jpg" alt="" /></li>
+
+        <!-- 第567移动的时候,显示区域不能留白 -->
+        <li><img src="./images/1.jpg" alt="" /></li>
+        <li><img src="./images/2.jpg" alt="" /></li>
+        <li><img src="./images/3.jpg" alt="" /></li>
+    </ul>
+</div>
+```
+
+#### 案例：旅游网站
+
+[案例效果](https://frontend-demo.a-nomad.com/animation_travel/index.html)
+
+```html{7-8,10,15,27,33,39,47,62,74,79,84,89,93-97,99-103,105-121,123,127}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body,
+    .container {
+        height: 100%;
+    }
+
+    .container {
+        position: relative;
+        background: url(./images/bg.jpg) no-repeat center 0/cover;
+    }
+
+    .cloud img {
+        position: absolute;
+        left: 50%;
+    }
+
+    .cloud img:first-child {
+        top: 40px;
+        margin-left: -260px;
+
+        animation: cloud 1s infinite alternate linear;
+    }
+
+    .cloud img:nth-child(2) {
+        top: 100px;
+        margin-left: 380px;
+        animation: cloud 1s .3s infinite alternate linear;
+    }
+
+    .cloud img:last-child {
+        top: 160px;
+        margin-left: -560px;
+        animation: cloud 1s .6s infinite alternate linear;
+    }
+
+    .balloon {
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        margin-left: -500px;
+        animation: balloon 1s alternate infinite linear;
+    }
+
+    .giraffe {
+        position: absolute;
+        left: 50%;
+        margin-left: 200px;
+        top: 20%;
+    }
+
+    .text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        animation: text 1s forwards;
+    }
+
+    .landmark img {
+        position: absolute;
+        left: 50%;
+        bottom: 70px;
+        width: 100px;
+    }
+
+    .landmark img:nth-child(1) {
+        margin-left: -450px;
+        animation: landmark 0.8s infinite alternate;
+    }
+
+    .landmark img:nth-child(2) {
+        margin-left: -200px;
+        animation: landmark 0.8s 0.2s infinite alternate;
+    }
+
+    .landmark img:nth-child(3) {
+        margin-left: 45px;
+        animation: landmark 0.8s 0.4s infinite alternate;
+    }
+
+    .landmark img:nth-child(4) {
+        margin-left: 280px;
+        animation: landmark 0.8s 0.6s infinite alternate;
+    }
+
+
+    @keyframes cloud {
+        to {
+            transform: translate(50px);
+        }
+    }
+
+    @keyframes balloon {
+        to {
+            transform: translateY(40px);
+        }
+    }
+
+    @keyframes text {
+        20% {
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+        40% {
+            transform: translate(-50%, -50%) scale(1.4);
+        }
+
+        70% {
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    @keyframes landmark {
+        to {
+            transform: translateY(-30px);
+        }
+    }
+</style>
+<div class="container">
+    <!-- 白云 -->
+    <div class="cloud">
+        <img src="images/yun1.png" />
+        <img src="images/yun2.png" />
+        <img src="images/yun3.png" />
+    </div>
+
+    <!-- 热气球 -->
+    <div class="balloon">
+        <img src="images/san.png" />
+    </div>
+
+    <!-- 长颈鹿 -->
+    <div class="giraffe">
+        <img src="images/lu.png" />
+    </div>
+
+    <!-- 文字 -->
+    <div class="text">
+        <img src="images/font1.png" />
+    </div>
+
+    <!-- 跳动文字 -->
+    <div class="landmark">
+        <img src="images/1.png" />
+        <img src="images/2.png" />
+        <img src="images/3.png" />
+        <img src="images/4.png" />
+    </div>
+</div>
+```
