@@ -97,12 +97,85 @@
 
 实际开发中一般盒子的比例与背景图比例是相同的，此时`contain`和`cover`效果一致。
 
-### 2.4 background-image
-`background-image`有两种常见用法，出了指定`url`设置背景图片外，还可以使用`linear-gradient`设定背景渐变色。
+### 2.4 渐变(background-image)
+`background-image`有两种常见用法，出了指定`url`设置背景图片外，还可以使用`linear-gradient`设定背景渐变色。常见渐变包括线性渐变和径向渐变两种。
 
-```css{2}
+#### 2.4.1 线性渐变
+线性渐变常用于给元素添加背景色，改善盒子中内容显示效果，案例见[华为2D变换案例](#_10-1-5-华为2d变换案例)
+
+完整语法为：`background-image: linear-gradient(渐变方向,颜色1 终点位置,颜色2 终点位置, ...)`。
+
+* 渐变方向为可选参数。取值可以为`to 方位名词`或`角度数`。
+* 终点位置为可选参数，取值为百分比。
+
+```css{2,4}
+/*背景色从右上角45度开始向左下角渐变，颜色从黑色变为透明，其中黑色占比40%*/
+background-image: linear-gradient(45deg,black 40%,transparent);
+
 /*背景色从透明线性渐变到粉色然后再渐变到红色*/
-background-images: linear-gradient(transparent,pink,red)
+background-image: linear-gradient(transparent,pink,red)
+```
+
+#### 2.4.2 径向渐变
+径向渐变常用与给元素添加高光效果。
+
+完整语法为：`background-image: radial-gradient( 半径 at 圆心位置, 颜色1 终点位置, 颜色2 终点位置, ...);`。
+* 半径是2条，则为椭圆
+* 圆心位置取值：像素单位数值 / 百分比 / 方位名词
+
+##### 案例：高光按钮
+
+<iframe src="https://frontend-demo.a-nomad.com/gradient/index.html" style="margin-top:20px;width:500px;height:150px;border:0" scrolling="no" />
+
+```html{11-15,31-33,37-39}
+<style>
+    .container {
+        width: 500px;
+    }
+
+    .ball {
+        float: left;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-image: radial-gradient(
+                /* 75+30两条渐变半径都从盒子中心点向外镜像渐变 */
+                75px 30px at center center,
+                blue,
+                skyblue);
+    }
+
+    button {
+        float: left;
+        display: block;
+        margin: 10px 15px;
+        border: 0;
+        border-radius: 5px;
+        width: 120px;
+        height: 40px;
+        background-color:olivedrab;
+        color: white;
+    }
+
+    .btn_linear {
+        background-image: linear-gradient(to right,
+                rgba(255, 255, 255, 0.3),
+                transparent);
+    }
+
+    .btn_radial {
+        background-image: radial-gradient(70px at 10px 10px,
+                rgba(255, 255, 255, 0.3),
+                transparent);
+    }
+</style>
+
+<div class="container">
+    <div class="ball"></div>
+    <button>普通按钮</button>
+    <button class="btn_linear">线性高光</button>
+    <button class="btn_radial">径向高光</button>
+</div>
 ```
 
 ### 2.5 background
@@ -701,7 +774,49 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 </ul>
 ```
 
-#### 10.1.4 华为2D变换案例
+#### 10.1.4 倾斜(skew)
+使用`skew`可以实现元素倾斜效果。语法为：`transform:skew(角度);`角度单位是`deg`。
+
+##### 案例：倾斜效果
+
+<iframe src="https://frontend-demo.a-nomad.com/transform_skew/index.html" style="width:360px;height:528px;border:0" scrolling="no" />
+
+```html{25}
+<style>
+    .pic {
+        position: relative;
+        overflow: hidden;
+        width: 360px;
+        background-color: blue;
+    }
+
+    .pic img {
+        display: block;
+        width: 100%;
+        height: 528px;
+    }
+
+    .pic::after {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        content: '';
+        width: 300px;
+        height: 528px;
+        background-image: linear-gradient(white,transparent);
+        opacity: 0.5;
+
+        transform: translate(-60%,-50%) skew(-25deg);
+    }
+</style>
+
+<div>
+    <div class="pic"><img src="./images/gem.jpg" alt="gem"></div>
+</div>
+```
+
+
+#### 10.1.5 华为2D变换案例
 
 <iframe src="https://frontend-demo.a-nomad.com/transform_huawei/index.html" style="margin-top:20px;width:100%;height:169px;border:0" scrolling="no" />
 
