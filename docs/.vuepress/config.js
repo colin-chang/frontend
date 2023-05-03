@@ -58,7 +58,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '/basic/intro',
-                    '/basic/css3'
+                    '/basic/css3',
+                    '/basic/mobile'
                 ]
             },
             // {
