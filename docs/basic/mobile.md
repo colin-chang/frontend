@@ -153,3 +153,46 @@ PC端屏幕大一般开发网页都会固定版心居中，而移动端屏幕较
 `nowrap`|不换行（默认）
 
 当弹性盒子换行显示时，多行之间会存在间距，可以使用`align-content`属性来调整行对齐方式，其取值与`justify-content`基本相同，这里不在赘述。
+
+### 2.6 文字省略
+正常情况下要使溢出文字显示省略号设置如下样式即可：
+```css
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+```
+但如果文字所在父级是一个`flex`弹性盒子，弹性盒子的内容会被不换行的文字撑开，此时要显式设定父级宽度才能使`overflow:hidden`生效，一般情况下我们可以设定`width:0`,同时设置`flex`属性让父级自动选择宽度。   
+
+```html{15-16}
+<style>
+    .container {
+        display: flex;
+        align-items: center;
+        width: 300px;
+    }
+
+    .container .pic {
+        width: 120px;
+        height: 120px;
+        background-color: pink;
+    }
+
+    .container .content {
+        flex: 1;
+        width: 0;
+    }
+
+    .container .content p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
+<div class="container">
+    <div class="pic">123</div>
+    <div class="content">
+        <h4>不能说的秘密</h4>
+        <p>你说把爱渐渐放下会走更远，又何必去改变已错过的时间</p>
+    </div>
+</div>
+```
