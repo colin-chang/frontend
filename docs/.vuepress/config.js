@@ -29,7 +29,7 @@ module.exports = {
         },
         nav: [{
                 text: 'Get Start',
-                link: '/basic/intro'
+                link: '/css/intro'
             },
             {
                 text: 'Books',
@@ -54,21 +54,21 @@ module.exports = {
         ],
         sidebar: [
             {
-                title: '前端基础',
+                title: 'HTML5/CSS3',
                 collapsable: false,
                 children: [
-                    '/basic/intro',
-                    '/basic/css3',
-                    '/basic/mobile'
+                    '/css/intro',
+                    '/css/css3',
+                    '/css/mobile'
                 ]
             },
-            // {
-            //     title: '技术进阶',
-            //     collapsable: false,
-            //     children: [
-            //         '/senior/generator'
-            //     ]
-            // },
+            {
+                title: 'JavaScript',
+                collapsable: false,
+                children: [
+                    '/js/basic'
+                ]
+            },
         ],
         sidebarDepth:3,
         displayAllHeaders: true,

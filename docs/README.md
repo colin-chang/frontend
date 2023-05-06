@@ -4,7 +4,7 @@ heroImage: https://s2.loli.net/2023/04/28/bG9ogaOuK7BAZwf.jpg
 heroText: 重拾大前端
 tagline: 拥抱大前端时代
 actionText: 快速了解 →
-actionLink: /basic/intro
+actionLink: /css/intro
 features:
 
 - title: 多端适配
