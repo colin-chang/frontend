@@ -66,7 +66,8 @@ module.exports = {
                 title: 'JavaScript',
                 collapsable: false,
                 children: [
-                    '/js/basic'
+                    '/js/es',
+                    '/js/webapi'
                 ]
             },
         ],
