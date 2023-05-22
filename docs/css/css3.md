@@ -532,12 +532,16 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
     background-size:cover;
     /*隐藏logo文字内容，但对搜索引擎可见，有利于SEO*/
     font-size:0;
-  }
+  }                            
   ```
 
 * 表格边框合并
 
   通过设置`border-collapse:collapse;`可以让相邻表格边框进行合并，得到细线边框效果
+
+* 表单自动完成
+
+  默认情况下浏览器会自动记录`form`标签中录入的内容并在辅助自动填写表单，可以设置`form`的`autocomplete="off"`来关闭此功能，避免数据泄露。
 
 * favicon
   

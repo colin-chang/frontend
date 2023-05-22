@@ -37,6 +37,7 @@
   item.classList.remove('active')
   item.classList.add('active')
   item.classList.toggle('active')
+  item.classList.contains('active') //判断是否包含指定类名
   ```
 
 * 表单操作
@@ -186,6 +187,10 @@ touch事件|说明
 * 脚本操作`DOM`（添加或者删除可见的`DOM`元素）
 
 简单理解影响到布局了，就会有回流。
+
+案例：电商放大图效果
+
+<iframe src="https://frontend-demo.a-nomad.com/webapi/index.html" style="width:100%;height:640px;border:0" scrolling="no" />
 
 ## 2. Bom
 `BOM(Browser Object Model)` 是浏览器对象模型。
