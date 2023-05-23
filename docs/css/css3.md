@@ -547,7 +547,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
   
   一般情况下我们会在网站根目录下放置一个名为`favicon.ico`的文件，然后通过如下代码引入网页，此图标会显示在网页标题栏最左侧。
   ```html{1}
-  <link rel="shortcut icon href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   ```
 
 * html高度
