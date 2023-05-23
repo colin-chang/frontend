@@ -46,7 +46,9 @@ ES6中变量必须先声明后使用，不存在变量名提升和函数名提�
 * `NaN`(Not a Number)表示非数字、`Infinity`则表示数字类型的无穷。`isNaN()`判断是否是非数字和`isFinite()`判断是否有穷尽
 
 
-### 4.1 相等运算符
+### 4.1 特殊运算符
+
+#### 4.1.1 相等运算符
 相等运算符,在 js 中等于和不等于有两种形式:
 
 运算符|作用
@@ -55,6 +57,18 @@ ES6中变量必须先声明后使用，不存在变量名提升和函数名提�
 `===`和`!==`|看类型和结果是否都一致
 
 **一般没有特殊需求时使用三个等号方式**。`undefined`和`null`变量用`==`相等，用`===`则不相等。`NaN`不等于任何值，包括它本身
+
+#### 4.1.2 展开运算符
+展开运算符用于展开数组，常用于求数组最大值(最小值)、合并数组等
+```js
+const arr = [1,5,3,8,2]
+Math.max(...arr)
+Math.min(...arr)
+
+const arr1 = [4,6,7]
+//合并数组
+const arr0 = [...arr,...arr1]
+```
 
 ### 4.2 `in` 和 `instanceof`
 在写类库的时候，或方法框架的时候经常需要判断一个变 量是什么类型的对象或判断这个对象是否具有某个成员， 此时可以使用 `in` 和 `instanceof` 运算符。
@@ -279,3 +293,99 @@ function counter(){
 const cnter=counter()
 cnter()
 ```
+
+## 10. 函数进阶
+
+函数可以在声明前被调用，称为函数提升。函数提升出现在相同作用域当中，但函数表达式不存在提升的现象。
+### 10.1 动态函数
+js中函数作为一种数据类型，所有的函数都派生自`Function`。
+
+`var func = new Function(arg1, arg2, ..., argN, body);`
+
+最后一个参数是函数体内容，前面是参数列表，参数列表，如果没有参数可以参数列表可以省略不写。所有 参数均以字符串形式进行传递。
+
+```js
+var fn = new Function("x","y", "alert(x+y)")
+fn(1,2)
+```
+`Function`允许我们将函数定义以字符串的形式作为参数进行传递，这样我们就可以在某些情况下拼接函数定义的字符串，然后丢给`Function`，这样就可以动态的创建 一个函数，非常灵活。
+
+### 10.2 函数参数
+#### 10.2.1 arguments
+在 js 中，可以给函数传递任意多个参数。定义函数的参数列表，只是显示可以使用的参数列表而已，真正的参数都交给了函数的 `arguments` ,`arguments` 对象是函数的参数列表对象集合。所有的函数参数列表不管是否在函数定义时是否声明，都可以通过`arguments`拿到，无参时`arguments.length=0`
+
+```js
+function sum(){
+  let sum = 0
+  for(let index in arguments)
+    sum += arguments[index]
+  return sum
+}
+sum(1,2,3)
+```
+
+在定义功能函数给用户使用时，我们还是显式的声明函数的参数列表，这样在函数调用时可以提醒用户传递什么参数，传递几个参数， 更加友好，提高函数的可读性和可用性。
+
+#### 10.2.2 剩余参数
+js剩余参数可以接收除了显示声明参数外的其它剩余参数，与Python中`*args`非常类似。剩余参数形参名字没有要求。
+
+```js
+// 剩余参数语法示例
+function fn(a,...args){
+  console.log(a) // 1
+  console.log(args) // [2,3]
+}
+fn(1,2,3)
+```
+
+```js
+// 剩余参数示例
+function sum(...args){
+  let sum = 0
+  for(let index in args)
+    sum += args[index]
+  return sum
+}
+sum(1,2,3)
+
+function(a,...args){
+  console.log(a)
+  console.log(args)
+}
+```
+
+### 10.3 箭头函数
+js中箭头函数语法与C#中Lambda表达式基本一致。箭头函数可以简化匿名函数使用且不绑定`this`。
+
+箭头函数没有`arguments`动态参数，但是有剩余参数`..args`
+
+```js
+// 箭头函数示例
+const link = document.querySelector('a')
+link.addEventListener('click',e => e.preventDefault)
+
+// 箭头函数返回字面量
+const fn = name => ({name:name})
+fn('Colin') // {name: 'Colin'}
+
+// 箭头函数使用剩余参数
+const calc = (...args)=> {
+  let sum = 0
+  for(let index in args)
+    sum += args[index]
+  return sum
+}
+calc(1,2,3)
+```
+
+js中每一个新函数根据它是被如何调用的来定义这个函数的`this`值,箭头函数不会创建自己的`this`,它只会从自己的作用域链的上一层沿用`this`。
+
+```js
+const user = {
+  name: 'Colin',
+  sayhi:()=> console.log(`hi ${this}`) // this 指向window而不是user
+}
+user.sayhi()
+```
+
+事件回调函数使用箭头函数时，`this`为全局的`window`，因此DOM事件回调函数为了简便，特别是需要用到`this`时不太推荐使用箭头函数。
