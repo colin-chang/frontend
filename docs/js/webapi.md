@@ -192,6 +192,69 @@ touch事件|说明
 
 <iframe src="https://frontend-demo.a-nomad.com/webapi/index.html" style="width:100%;height:640px;border:0" scrolling="no" />
 
+```js{40-41,45-48,58-59}
+    const sm = document.querySelector('.small')
+    const md = document.querySelector('.middle')
+    const lg = document.querySelector('.large')
+
+    // small鼠标悬浮
+    sm.addEventListener('mouseover', function (e) {
+      if (e.target.tagName === 'IMG') {
+        // 悬浮效果
+        this.querySelector('.active').classList.toggle('active')
+        e.target.parentNode.classList.add('active')
+        // 切换图片
+        md.querySelector('img').src = e.target.src
+        lg.style.backgroundImage = `url(${e.target.src})`
+      }
+    })
+
+    // middle 鼠标悬浮
+    md.addEventListener('mouseenter', showLg)
+    md.addEventListener('mouseleave', hideLg)
+    let timeoutId = null
+    function showLg() {
+      clearTimeout(timeoutId)
+      lg.style.display = 'block'
+      ly.style.display = 'block'
+    }
+    function hideLg() {
+      timeoutId = setTimeout(function () { lg.style.display = 'none' }, 200)
+      ly.style.display = 'none'
+    }
+
+    // large 鼠标悬浮
+    lg.addEventListener('mouseenter', showLg)
+    lg.addEventListener('mouseleave', hideLg)
+
+    // middle 鼠标移动
+    const ly = md.querySelector('.layer')
+    md.addEventListener('mousemove', function (e) {
+      const rect = this.getBoundingClientRect()
+      // 鼠标在middle中的坐标
+      const x = e.pageX - rect.x
+      const y = e.pageY - rect.y - document.documentElement.scrollTop
+      if (x < 0 || x > this.clientWidth || y < 0 || y > this.clientHeight)
+        return
+
+      let mx = my = 0
+      if (x < ly.clientWidth / 2) mx = 0
+      else if (x > this.clientWidth - ly.clientWidth / 2) mx = this.clientWidth - ly.clientWidth
+      else mx = x - ly.clientWidth / 2
+
+      if (y < ly.clientHeight / 2) my = 0
+      else if (y > this.clientHeight - ly.clientHeight / 2) my = this.clientHeight - ly.clientHeight
+      else my = y - ly.clientHeight / 2
+
+      ly.style.left = `${mx}px`
+      ly.style.top = `${my}px`
+
+      // 大盒子的背景图片要跟随 中等盒子移动  存在的关系是 2倍
+      lg.style.backgroundPositionX = `${-2 * mx}px`
+      lg.style.backgroundPositionY = `${-2 * my}px`
+    })
+```
+
 ## 2. Bom
 `BOM(Browser Object Model)` 是浏览器对象模型。
 
