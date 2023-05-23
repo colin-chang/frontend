@@ -421,7 +421,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 * 文本框和表单按钮无法对齐问题（`vertical-align:middle`）
 * `input`和`img`无法对齐问题
 * `div`中的文本框，文本框无法贴顶问题（`vertical-align:top`）
-* `div`不设高度由img标签撑开，此时img标签下面会存在额外间隙问题（`vertical-align:middle`或`display:block`）
+* `div`不设高度由`img`标签撑开，此时`img`标签下面会存在额外间隙问题（`vertical-align:middle`或`display:block`）
 * 使用`line-height`让`img`标签垂直居中问题(父级设置行高同时图片设置`vertical-align:middle`)
 
 ### 7.3 光标类型
