@@ -428,7 +428,7 @@ let b = 2; // 此处分号必须
 * 为了避免`undefined`的情况，可以为变量指定默认值
 * 利用剩余参数解决变量少单元值多的情况，剩余参数返回的还是一个数组
 * 可以忽略某些单元值
-* 支持多维数组结构
+* 支持多维数组解构
 
 ```js
 const [a,b,c] = ['Apple','Huawei'] //c为undefined
@@ -438,7 +438,7 @@ const [a,,c] = ['Apple','Huawei','Xiaomi'] //忽略第二个单元值
 const [a,b] = ['Apple',['Xiaomi','Vivo']] // b为['Xiaomi','Vivo']
 ```
 
-### 11.2 对象结构
+### 11.2 对象解构
 对象解构是将对象属性和方法快速批量赋值给一系列变量的简洁语法。对象属性的值将被赋值给与属性名相同的变量。
 
 ```js{5}
@@ -462,7 +462,7 @@ const {name:username,age,gender} = person //name重命名为username ,gender 为
 console.log(username,age)
 ```
 
-数组对象结构，结合数组和对象结构语法即可。
+数组对象解构，结合数组和对象解构语法即可。
 ```js{2}
 const pigs=[{name:'Page',age:3}]
 const [{name,age}]=pigs

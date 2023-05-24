@@ -1007,7 +1007,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 开发中空间缩放使用较少。
 
 #### 10.2.4 立体呈现
-`perspective`属性只能增加近大远小的透视效果，并不能呈现立体图形。在父元素添加`transform-style: preserve-3d;`则可以是子元素出于真正的3D空间，借助于次可以通过CSS展现3D图像。
+`perspective`属性只能增加近大远小的透视效果，并不能呈现立体图形。在**父元素**添加`transform-style: preserve-3d;`则可以使子元素出于真正的3D空间，借助于此可以通过CSS展现3D图像。
 
 ##### 案例：立方体
 <iframe src="https://frontend-demo.a-nomad.com/transform_style/index.html" style="width:300px;height:320px;border:0" scrolling="no" />
