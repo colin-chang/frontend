@@ -248,7 +248,68 @@ Object.values.join('/') // Colin/18
 Object.assign(person,{gender:'Male'}) // 将对象拷贝(扩展)到person对象中
 ```
 
-## 7. 日期
+### 6.5 深浅拷贝
+实际开发中我们经常会用到对象拷贝，因为对象是引用类型，直接赋值给一个新的对象，两者指向的仍然是同一个对象，对任一对象的修改都会让另外一个对象受到影响，此时我们需要进行对象拷贝，对象拷贝的目的就是让新的对象与旧对象之间互相独立，互不影响。
+
+对象拷贝分为浅拷贝和深拷贝两种。浅拷贝只会拷贝第一层对象(单层对象)，如果对象中存在其它对象类型的属性（多层对象），则对象属性仍然是地址引用。深拷贝则会递归拷贝对象，新旧对象除了值完全相同之外，没有任何关系。
+
+#### 6.5.1 浅拷贝
+浅拷贝中拷贝的只是对象属性地址，所以只有对象中简单值类型属性有效，对象类型属性仍然是指向源对象属性。
+
+数组浅拷贝可以使用展开运算符或`concat()`方法，对象浅拷贝则可以使用展开运算法和`assign()`方法。
+
+```js
+// 数组浅拷贝
+const arr = [1, 2, 3, 4]
+const arr1 = [...arr]
+const arr2 = arr.concat()
+
+// 对象浅拷贝
+const obj = { name: 'Colin', age: 18 }
+const obj1 = { ...obj }
+let obj2
+Object.assign(obj2, obj)
+```
+
+#### 6.5.2 深拷贝
+深拷贝中拷贝的是对象内容而不是地址。
+
+深拷贝一般是通过递归浅拷贝实现的。一般我们可以通过如下方式实现对象深拷贝：
+* 自定义递归拷贝
+* 调用第三方库，如[`lodash`](https://www.lodashjs.com/)库的[`cloneDeep()`](https://www.lodashjs.com/docs/lodash.cloneDeep#_clonedeepvalue)
+* JSON反序列化
+
+```js{7,13-14,22,25}
+const obj = { name: 'Colin', age: 18, info: { height: 175, weight: 68 } }
+
+//1. 自定义递归深拷贝函数
+function cloneDeep(target, src) {
+    for (const k in src) {
+        //值类型
+        if (!(src[k] instanceof Object)) {
+            target[k] = src[k]
+            continue
+        }
+
+        // 引用类型
+        target[k] = src[k] instanceof Array ? [] : {} // 先数据组后对象，因为数组也属于对象
+        cloneDeep(target[k], src[k])
+    }
+}
+let obj1 = {}
+cloneDeep(obj1, obj)
+
+
+//2. lodash
+const obj2 = _.cloneDeep(ojb)
+
+//3. 反序列化
+const obj3 = JSON.parse(JSON.stringify(obj))
+```
+
+
+## 7. 日期和异常
+### 7.1 日期对象
 `Date`对象封装了时间相关的操作。
 ```js
 const now = new Date();//获取当前时间 
@@ -273,6 +334,22 @@ console.log(date.getTime())
 
 console.log(+new Date())
 console.log(Date.now())
+```
+
+### 7.2 异常对象
+js中也可以使用`try/catch/finally`结构处理异常。可以通过`throw`关键字抛出异常，异常一般使用`Error`对象，它包含了异常的详细信息。除了手动断点调试外，可以直接在js代码中添加`debugger`关键字来实现主动断点效果。
+
+```js{2-3,5,8}
+try{
+  debugger //自动中断
+  throw new Error('自定义异常')
+}
+catch(e){
+   console.log(e.message)
+}
+finally{
+  console.log('清理资源')
+}
 ```
 
 ## 8. JavaScript执行机制
@@ -478,7 +555,7 @@ const calc = (...args)=> {
 calc(1,2,3)
 ```
 
-js中每一个新函数根据它是被如何调用的来定义这个函数的`this`值,箭头函数不会创建自己的`this`,它只会从自己的作用域链的上一层沿用`this`。
+js中每一个新函数根据它是被如何调用的来定义这个函数的`this`值,箭头函数不会创建自己的`this`,它只会从自己的作用域链中向上一层沿用`this`。
 
 ```js{3}
 const user = {
@@ -488,7 +565,51 @@ const user = {
 user.sayhi()
 ```
 
-事件回调函数使用箭头函数时，`this`为全局的`window`，因此DOM事件回调函数为了简便，特别是需要用到`this`时不太推荐使用箭头函数。
+* DOM元素事件回调函数中，`this`指向DOM元素自身，如果使用箭头函数`this`则指向DOM元素上一层的`window`，因此DOM事件回调函数需要用到`this`时不推荐使用箭头函数。
+* 原型对象的函数中`this`指向对象实例d，如果使用箭头函数`this`则指向对象实例上一层的`window`，因此在原型扩展函数中需要用到`this`时也推荐使用箭头函数
+
+### 10.4 this
+#### 10.4.1 this 指向
+普通函数中`this`指向的是当前函数的调用者，即**谁调用则指向谁**。`window`对象的函数调用时一般省略了`window`关键字但不影响`this`仍然指向`window`对象。普通函数没有明确调用者时`this` 值为 `window`，严格模式下没有调用者时 `this` 的值为 `undefined`。
+
+箭头函数不会创建自己的`this`,它会从自己的作用域链中向上一层沿用`this`。在使用箭头函数时要特别注意`this`的指向问题。
+
+构造函数中`this`指向构造函数创建的实例对象。
+
+原型对象的扩展方法中`this`指向原型对象的宿主对象。
+
+#### 10.4.2 修改 this
+js允许我们修改函数中`this`的指向，常用方式有`call()/apply()/bind()`三种。
+
+* 使用`call`方式调用函数，可以同时指定被调用函数中`this`的值，其语法为`fun.call(thisArg, arg1, arg2, ...)`
+* 使用`call`方式调用函数，可以同时指定被调用函数中`this`的值，其语法为`fun.apply(thisArg, [argsArray])`，与`call`方式唯一不同是`apply`中的函数参数是以数组形式传递的，在调用原函数时会自动执行数组展开
+* `bind()` 会改变函数内部`this`指向并将修改后的新函数作为返回值，它不会调用函数本身，而只是相当于一个函数的`this`修改器。
+
+
+```js{8-9,13,19}
+const person = { name: 'Colin' }
+function sayhi(a) {
+    console.log(`hi ${this.name}`)
+    console.log(a)
+}
+
+sayhi()
+sayhi.call(person, 18)
+sayhi.apply(person, [18])
+
+const arr = [1, 2, 3]
+Math.max(...arr)
+Math.max.apply(null, arr) //利用apply参数数组展开特性求最大值
+
+const btn = document.querySelector('.sendSms')
+btn.addEventListener('click', function () {
+    this.disabled = true
+    // 通过bind函数修改延时器回调函数内的this指向当前作用域this(btn)
+    setTimeout((() => this.disabled = false).bind(this), 60000)
+})
+```
+
+
 
 ## 11. 解构赋值
 解构赋值是一种快速为变量赋值的简洁语法，本质上仍然是为变量赋值。
