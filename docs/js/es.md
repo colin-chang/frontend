@@ -14,21 +14,21 @@
 ## 2. JavaScript结束符
 JavaScript结束符是英文分号，可写可不写。换行符（回车）会被识别成结束符 ,所以一个完整的语句，不要手动换行。因此在实际开发中有许多人主张书写 JavaScript 代码时省略结束符，但为了风格统一，要写结束符就每句都写，要么每句都不写。VUE等js库源码全都采用了无结束符的写法。
 
-```js
+```js{1}
 <script>
-    let name= prompt("what's your name?")
+    let name= prompt("what's your name?")  //接收用户输入
     alert(`Hi ${name}`)
 </script>
 ```
 
 
 * **多个立即执行函数要用`;`隔开，要不然会报错**。
-```js
+```js{1}
 (function(){console.log(123)})();
 (function(){console.log(456)})()
 ```
-* 数组开头且前面还有其它语句时，必须使用分号，如数组解构
-```js
+* **数组开头且前面还有其它语句时，必须使用分号**，如数组解构
+```js{1}
 const name = 'Colin';//分号必须
 [1,2,3].map(item => console.log(item))
 ```
@@ -66,7 +66,7 @@ ES6中变量必须先声明后使用，不存在变量名提升和函数名提�
 
 #### 4.1.2 展开运算符
 展开运算符用于展开数组，常用于求数组最大值(最小值)、合并数组等
-```js
+```js{2-3,7}
 const arr = [1,5,3,8,2]
 Math.max(...arr)
 Math.min(...arr)
@@ -79,28 +79,28 @@ const arr0 = [...arr,...arr1]
 ### 4.2 `in` 和 `instanceof`
 在写类库的时候，或方法框架的时候经常需要判断一个变 量是什么类型的对象或判断这个对象是否具有某个成员， 此时可以使用 `in` 和 `instanceof` 运算符。
 
-```js
+```js{4,5,11,15}
 //in运算符用于检查对象是否具有指定成员 
 //语法:boolean 成员名符串 in 对象
-var o = { name: "Colin", gender: "男", say: function () { } }
+const o = { name: "Colin", gender: "男", say: function () { } }
 alert("say" in o)
 alert("age" in o)
 alert(!!o.age) //也可以转换为 boolean 判断是否具有此属性
 
 //判断对象是否是某个类型的实例，类似C#中的is运算符 
 //语法:boolean 对象 instanceof 构造函数
-var arr = [123, "abc", true]
+const arr = [123, "abc", true]
 alert(arr instanceof Array)
 //instanceof运算符同样适用于自定义类型
-var Person = function () { }//Person对象构造函数
-var p = new Person()
+const Person = function () { }//Person对象构造函数
+const p = new Person()
 alert(p instanceof Student)
 ```
 
 ### 4.3 数字类型
 数字类型在做小数运算的时候会存在精度问题，一般情况下我们会将小数转为整数计算。
 
-```js
+```js{2,4}
 const price0 = 0.1+0.2 // 0.30000000000000004`
 const price1 = (0.1*100+0.2*100)/100 //0.3
 
@@ -114,7 +114,7 @@ js 中的数组类似于C#当中的数组/`ArrayList`/`HashTable`的超强综合
 * 在 js 中不存在多维数组也没有规定数组的类型，我们可以用数组作为数组的元素模拟多维数组。
 * js 中数组中可以存放任意类型的元素，数组的下标也可以是任意的数据类型
 * 数组使用非数字下标时，不仅可以使用索引方式访问数组成员，还可以直接以"数 组名.成员下标"的方式方法，在把数组当做`Dictionary`时，这种用法很常用
-  ```js
+  ```js{1-2}
   var dict = new Array()
   dict["人"] = "ren"
   alert(dict["人"])
@@ -177,7 +177,7 @@ const total = arr.reduce((prev,current) => prev + current.score,0) // 270
 | `Array.from()` | 从可迭代或类数组对象创建一个新的浅拷贝的数组实例。一般可将伪数组转为真数组                              |
 
 
-```js
+```js{2-3}
 const arr = [5, 12, 8, 130, 44]
 const val = arr.find(e => e > 10) // 12
 const index = arr.findIndex(e => e >10) // 1
@@ -300,7 +300,7 @@ console.log(3)
 ```
 
 ## 9. 作用域
-作用域（scope）规定了变量能够被访问的“范围”，离开了这个“范围”变量便不能被访问。js中作用域分为局部作用域和全局作用域。
+作用域（`scope`）规定了变量能够被访问的“范围”，离开了这个“范围”变量便不能被访问。js中作用域分为局部作用域和全局作用域。
 
 ### 9.1 局部作用域
 局部作用域分为函数作用域和块作用域。
@@ -340,7 +340,7 @@ f()
 ```
 
 ### 9.4 GC
-垃圾回收机制(Garbage Collection) 简称 GC，JS中内存的分配和回收都是自动完成的，内存在不使用的时候会被垃圾回收器自动回收。
+垃圾回收机制(`Garbage Collection`) 简称 `GC`，JS中内存的分配和回收都是自动完成的，内存在不使用的时候会被垃圾回收器自动回收。
 
 当我们声明变量、函数、对象的时候，系统会自动为他们分配内存，使用变量、函数等过程就会进行内存读写，使用完毕，由垃圾回收自动回收不再使用的内存。一般情况下局部变量的值, 不用了, 会被自动回收掉，但**全局变量一般会在关闭页面时才回收
 
@@ -349,7 +349,7 @@ f()
 #### 9.4.1  引用计数法
 IE采用的引用计数算法, 它会跟踪记录被变量引用的次数，如果被引用了一次，那么就记录次数1,如果减少一个引用就减1，如果引用次数是0 ，则释放内存。引用计数存在一个致命的问题，嵌套引用（循环引用）。如果两个对象相互引用，尽管他们已不再使用，垃圾回收器不会进行回收，导致内存泄露。
 
-```js
+```js{4-5}
 //循环引用示例
 function fc(){
   let o1={},o2={}
@@ -365,7 +365,7 @@ fn()
 ### 9.5 闭包
 一个函数对周围状态的引用捆绑在一起，内层函数中访问到其外层函数的作用域，这称之为闭包。可以简单理解为 闭包 = 内层函数 + 外层函数的变量。
 
-```js
+```js{4,6-8}
 // 闭包示例
 function outer(){
   // 外层变量
@@ -381,7 +381,7 @@ fn()
 
 闭包作用是，封闭内部数据，外部也可以访问函数操作内部的变量。类似于属性对于私有字段的封装。
 
-```js
+```js{3-7}
 // 闭包数据私有化示例 只能通过闭包修改计数器值，避免计数器被外部直接进行非法篡改
 function counter(){
   let cnt=0
@@ -404,7 +404,7 @@ js中函数作为一种数据类型，所有的函数都派生自`Function`。
 
 最后一个参数是函数体内容，前面是参数列表，参数列表，如果没有参数可以参数列表可以省略不写。所有 参数均以字符串形式进行传递。
 
-```js
+```js{1}
 var fn = new Function("x","y", "alert(x+y)")
 fn(1,2)
 ```
@@ -480,7 +480,7 @@ calc(1,2,3)
 
 js中每一个新函数根据它是被如何调用的来定义这个函数的`this`值,箭头函数不会创建自己的`this`,它只会从自己的作用域链的上一层沿用`this`。
 
-```js
+```js{3}
 const user = {
   name: 'Colin',
   sayhi:()=> console.log(`hi ${this}`) // this 指向window而不是user
@@ -615,7 +615,7 @@ js中每个对象都一个`__proto__`属性指向其构造函数的`prototype`�
 
 `__proto__`是js非标准属性，在浏览器中可能显示为`[[prototype]]`。
 
-```js
+```js{2}
 const p = new Person()
 p.__proto__ === Person.prototype // true
 ```
