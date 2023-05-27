@@ -601,6 +601,7 @@ const arr = [1, 2, 3]
 Math.max(...arr)
 Math.max.apply(null, arr) //利用apply参数数组展开特性求最大值
 
+// 点击发送短信按钮后1分钟后才可再次点击
 const btn = document.querySelector('.sendSms')
 btn.addEventListener('click', function () {
     this.disabled = true
@@ -776,3 +777,89 @@ people.study()
 原型链与对象作用域链类似，都是一种查找规则。
 
 js中当使用一个对象的成员时，会首先在当前对象中查找，如果没有则查找该对象的原型`__proto__`（相当于父类），原型对象中没有则继续查找原型对象的原型（父类的父类），依此类推直到找到Object的原型为`null`,依然没有则报错，找到则正常访问。这种按照原型逐层查找对象成员的方式称为原型链。
+
+## 12. 性能优化
+### 12.1 节流
+节流就是在指定时间内连续触发事件，但仅执行一次。只有当上一次执行完成后才允许执行下一次。类似生活场景中，一个电话被多人呼叫，只有第一个呼叫能接通，后面的呼叫只有等一个通话结束后才能接通。
+
+节流一般用于优化会密集触发的事件如 `mousemove`、`resize`、`scroll`等，当然也可以防止用户密集操作，如密集点击秒杀按钮，轮播图切换按钮等。
+
+节流效果可以通过自定义函数来实现，核心思路如下：
+1. 声明一个延时器变量
+2. 事件触发时判断延时器是否存在，如果存在则不处理
+3. 如果没有延时器则创建一个并记录到变量中，然后执行业务逻辑
+4. 延时器完毕后清空延时器变量
+需要注意的是，不能在延时器内部调用`clearTimeOut()`
+
+当然除了手写节流函数，也可以直接使用`lodash`库的[`_.throttle()`](https://www.lodashjs.com/docs/lodash.throttle#_throttlefunc-wait0-options)函数。
+
+```js{5-17,21,24}
+function seckill() {
+    console.log('秒杀')
+}
+// 1. 自定义节流函数
+function throttle(func, wait = 0) {
+    let timer = null
+    return function () {
+        if (!!timer) // 已存在执行中的延时器则直接退出
+            return
+
+        //没有在执行的延时器则触发一次执行并创建一个延时器
+        func()
+        timer = setTimeout(() => {
+            timer = null // 执行完毕清空延时器
+        }, wait)
+    }
+}
+
+
+const btn = document.querySelector('.seckill')
+btn.addEventListener('click', throttle(seckill, 500)) //密集秒杀，每500ms有效执行一次
+
+//2. 使用lodash节流函数
+btn.addEventListener('click',_.throttle(seckill,500))
+```
+
+案例：利用节流保存客户看视频的进度
+```js{3,5}
+const video = document.querySelector('video')
+//视频播放过程，使用节流函数每1s记录一次播放进度
+video.ontimeupdate = _.throttle(() => localStorage.setItem('progressTime', video.currentTime), 1000)
+//video数据加载完毕后恢复保存的播放进度
+video.onloadeddata = function () { this.currentTime = localStorage.getItem('progressTime') || 0 }
+```
+
+### 12.2 防抖
+防抖就是在指定时间内连续触发事件，后面的事件会停止前面的事件执行，然后再执行最新一次。类似生活场景中，社保年限的累计，前面连续交了5年社保，如果中断了并重新开始交，则社保有效时间从最新一次开始计算。
+
+防抖可以用于搜索框输入优化，如用户搜索框输入内容变化后自动触发数据检索，又或者输入内容变化后执行手机号等数据校验等。
+
+防抖效果可以通过自定义函数来实现，核心思路如下：
+1. 声明一个延时器变量
+2. 事件触发时判断延时器是否存在，如果存在则清除。
+3. 如果没有延时器则创建一个并记录到变量中
+4. 延时器中执行业务逻辑
+
+当然除了手写防抖函数，也可以直接使用`lodash`库的[`_.debounce()`](https://www.lodashjs.com/docs/lodash.debounce#_debouncefunc-wait0-options)函数。
+
+```js{7-15,17,19}
+const input = document.querySelector('input')
+function search() {
+    console.log(`搜索关键字${this.value}`)
+}
+
+//1. 自定义防抖函数
+function debounce(func, wait = 0) {
+    let timer = null
+    return function () {
+        if (timer) //存在正在执行的任务则清除
+            clearTimeout(timer)
+
+        timer = setTimeout(func.bind(input), wait)
+    }
+}
+
+input.addEventListener('keyup', debounce(search, 500))
+//2. lodash防抖函数
+input.addEventListener('keyup', _.debounce(search, 500))
+```

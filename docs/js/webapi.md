@@ -1,6 +1,6 @@
 # Web APIs
 ## 1. Dom
-### 1.1 属性样式
+### 1.1 属性样式{2,5}
 * 获取Dom元素的常用方式
   ```js
   // 返回CSS选择器匹配的第一个元素,如果没有匹配到，则返回null
@@ -78,7 +78,7 @@
 ### 1.3 事件监听
 `EventTarget.addEventListener('事件类型',事件处理函数)`可以将指定的监听器注册到`EventTarget`上，当该对象触发指定的事件时，指定的回调函数就会被执行。它允许为一个事件添加多个监听器，相比于`onXYZ`属性绑定来说，它提供了一种更精细的手段来控制 `listener`的触发阶段。
 
-```js
+```js{2,4-5}
 const btn= document.querySelector('a')
 btn.addEventListener('click',function(e){
     console.log('clicked')
@@ -109,7 +109,7 @@ btn.addEventListener('click',function(e){
 
 当一个父元素中有很多子元素，需要为每一个子元素分别注册事件时，因为时间冒泡的原因，子元素的事件会自动冒泡到父元素同名事件中，我们可以直接将事件注册给父元素，然后在父元素的事件对象中通过其`target`属性获得真正触发事件的元素，这称之为**事件委托**。
 
-```js
+```js{3}
 const ul = document.querySelector('ul')
 ul.addEventListener('click', function (e) {
     console.log(e.target.innerText)
@@ -122,7 +122,7 @@ ul.addEventListener('click', function (e) {
 
 我们可以通过元素的`scrollLeft/scrollTop`来获取元素滚动被卷进去的左侧和顶部的尺寸。整个页面滚动时滚动的对象并不是`window`和`document`而是`html`标签，我们可以通过`document.documentElement`来获取html元素。除了直接赋值`scrollTop`属性外，我们也可以调用`window.scrollTo(x,y)`来将页面滚动下指定的位置，如`window.scrollTo(0,0)`可以将页面滚动到顶部。
 
-```js
+```js{3-4}
 document.documentElement.scrollTop = 200 //赋值时为数字类型且不带单位
 // window.scrollTo(0,200)
 window.addEventListener('scroll', function (e) {
@@ -146,7 +146,7 @@ window.addEventListener('scroll', function (e) {
 
 `flexible.js`的核心代码就是监听了`window`对象的`resize`事件，在窗口尺寸变化时，获取`html`元素的`clientWidth`然后动态计算根字号尺寸。
 
-```js
+```js{2-3,5}
 function setFontSize() {
     const html = document.documentElement
     html.style.fontSize = `${html.clientWidth / 10}px`
@@ -273,7 +273,7 @@ touch事件|说明
 `reload()`|用来刷新当前页面，传入参数`true`时表示强制刷新
 
 `navigator`对象记录了浏览器自身的相关信息。
-```js
+```js{3}
 // 检测 userAgent（浏览器信息）
 !(function () { 
     const userAgent = navigator.userAgent 
@@ -306,7 +306,7 @@ Web开发中为了满足各种各样的需求，会经常性在本地存储部�
 
 `localStorage`可以将数据永久存储在本地(用户的电脑), 除非手动删除，否则关闭页面也会存在。`sessionStorage` 类似 `localStorage` ，但其区别在于存储在 `localStorage` 的数据可以长期保留,而当页面会话结束——也就是说，当页面被关闭时，存储在`sessionStorage`的数据会被清除。
 
-```js
+```js{2,4,6,8}
 // 存储数据
 localStorage.setItem('key', 'value')
 // 读取数据
@@ -319,7 +319,7 @@ localStorage.clear()
 
 `localStorage`和`sessionStorage`中的键值对总是以字符串的形式存储。 (需要注意，和 js 对象相比，键值对总是以字符串的形式存储意味着数值类型会自动转化为字符串类型)。如果要存储复杂对象，需要先将对象json序列化后再存储。
 
-```js
+```js{3-4}
 // 存储对象
 const person ={name:'Colin',age:18}
 sessionStorage.setItem('person',JSON.stringify(person))
