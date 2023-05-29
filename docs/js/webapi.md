@@ -1,8 +1,8 @@
 # Web APIs
 ## 1. Dom
-### 1.1 属性样式{2,5}
+### 1.1 属性样式
 * 获取Dom元素的常用方式
-  ```js
+  ```js{2,5}
   // 返回CSS选择器匹配的第一个元素,如果没有匹配到，则返回null
   document.querySelector('css选择器')
 

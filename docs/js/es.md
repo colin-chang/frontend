@@ -219,10 +219,10 @@ Date.now() //静态成员
 ### 6.3 包装对象
 `number/string/bool`等基本数据类型都有对应的构造函数（包装类型），通过构造函数创建的对象称为包装对象，包装对象不仅具有和基本类型一样的值，还包含类型相关的方法与属性。就如同 C#当中 int 与 Int32,string 与 String 的关系。包装类型与基本类型用法一致，但是基本类型的扩充
 
-```js{1}
-let num=new Number(123)//使用 new 关键字创建包装类型
+```js{1,4}
+let num = new Number(123)//使用 new 关键字创建包装类型
 
-let num=10
+let num = 10
 num.toString() //num 在内存中临时创建一个 Number 对象，并执行 toString()方法， 将结果返回，同时释放这这个包装对象
 ```
 
@@ -258,7 +258,7 @@ Object.assign(person,{gender:'Male'}) // 将对象拷贝(扩展)到person对象�
 
 数组浅拷贝可以使用展开运算符或`concat()`方法，对象浅拷贝则可以使用展开运算法和`assign()`方法。
 
-```js
+```js{3-4,8,10}
 // 数组浅拷贝
 const arr = [1, 2, 3, 4]
 const arr1 = [...arr]
@@ -311,7 +311,7 @@ const obj3 = JSON.parse(JSON.stringify(obj))
 ## 7. 日期和异常
 ### 7.1 日期对象
 `Date`对象封装了时间相关的操作。
-```js
+```js{1-3}
 const now = new Date();//获取当前时间 
 alert(now.toLocaleDateString());//获取日期
 alert(now.toLocaleTimeString());//获取时间 
@@ -586,7 +586,7 @@ js允许我们修改函数中`this`的指向，常用方式有`call()/apply()/bi
 * `bind()` 会改变函数内部`this`指向并将修改后的新函数作为返回值，它不会调用函数本身，而只是相当于一个函数的`this`修改器。
 
 
-```js{8-9,13,19}
+```js{8-9,13,19-20}
 const person = { name: 'Colin' }
 function sayhi(a) {
     console.log(`hi ${this.name}`)
@@ -609,8 +609,6 @@ btn.addEventListener('click', function () {
     setTimeout((() => this.disabled = false).bind(this), 60000)
 })
 ```
-
-
 
 ## 11. 解构赋值
 解构赋值是一种快速为变量赋值的简洁语法，本质上仍然是为变量赋值。

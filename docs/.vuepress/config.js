@@ -70,6 +70,13 @@ module.exports = {
                     '/js/webapi'
                 ]
             },
+            {
+                title: 'Node.js',
+                collapsable: false,
+                children: [
+                    '/node/basic'
+                ]
+            },
         ],
         sidebarDepth:3,
         displayAllHeaders: true,
