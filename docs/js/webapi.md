@@ -154,7 +154,6 @@ function setFontSize() {
 window.addEventListener('resize',setFontSize)
 ```
 
-
 ### 1.5 移动端事件
 移动端一般是触屏设备，最常使用的操作是`touch`事件，`touch`对象代表一个触摸点，触摸点可能是手指、触控笔等。
 
@@ -187,6 +186,32 @@ touch事件|说明
 * 脚本操作`DOM`（添加或者删除可见的`DOM`元素）
 
 简单理解影响到布局了，就会有回流。
+
+#### 屏幕刷新重绘与`requestAnimationFrame`
+屏幕刷新率是指显示器每秒刷新屏幕的次数，通常以赫兹（Hz）表示。常见的屏幕刷新率包括 60Hz、75Hz、120Hz 等。屏幕刷新率定时刷新屏幕通常会引起浏览器的重绘，如果屏幕刷新率是60Hz，那意味着每隔16.67ms就会执行一次页面重绘。
+
+当我们使用 JavaScript 或 CSS 来实现动画，通常会设置动画更新时间与屏幕刷新率保持同步。动画更新频率高于屏幕刷新率是无效的，如动画设置每5ms更新一次，但屏幕刷新率为60Hz，动画最终会每16.67ms更新一次。
+
+`requestAnimationFrame`是js内置函数，它会在浏览器准备进行下一次重绘时调用指定的回调函数，通过使用 `requestAnimationFrame`，你可以实现与屏幕刷新率同步的定时任务，常用来作为定时器使用，且性能优于`setInterval`，只是`requestAnimationFrame`定时触发由屏幕刷新率决定，无法自定义。
+
+```js{10}
+// 倒计时时间（单位：秒）
+let countdown = 10;
+
+// 更新倒计时显示
+function updateCountdown() {
+  console.log(countdown)
+
+  if (countdown > 0) {
+    countdown--;
+    requestAnimationFrame(updateCountdown)
+  } else {
+    console.log('Time\'s up!')
+  }
+}
+// 启动倒计时
+updateCountdown()
+```
 
 案例：电商放大图效果
 
