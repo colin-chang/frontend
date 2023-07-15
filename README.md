@@ -22,6 +22,6 @@
 > [预览文档](https://frontend.a-nomad.com) https://frontend.a-nomad.com
 
 ```sh
-npm install -D vuepress @vuepress/plugin-active-header-links @vuepress/plugin-back-to-top @vuepress/plugin-google-analytics @vuepress/plugin-medium-zoom watchman
-npm run dev
+pnpm add -D vuepress@next @vuepress/client@next vue @vuepress/plugin-docsearch@next @vuepress/plugin-google-analytics@next
+pnpm dev
 ```

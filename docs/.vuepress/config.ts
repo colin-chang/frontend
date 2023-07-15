@@ -1,4 +1,7 @@
-module.exports = {
+import { defaultTheme } from 'vuepress'
+import { docsearchPlugin } from '@vuepress/plugin-docsearch'
+import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
+export default {
     title: '重拾大前端',
     description: '拥抱大前端时代',
     base: '/',
@@ -8,32 +11,19 @@ module.exports = {
             href: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1658902565243/IDyIb_63A.png'
         }]
     ],
-    plugins: [
-        '@vuepress/active-header-links',
-        '@vuepress/back-to-top',
-        '@vuepress/last-updated',
-        '@vuepress/medium-zoom',
-        ['@vuepress/google-analytics', {
-            ga: 'UA-131744342-1'
-        }]
-    ],
-    themeConfig: {
+    theme:defaultTheme({
         logo:'https://s2.loli.net/2022/08/04/UXqgLBVfzPuvb5A.png',
+        logoDark:'https://s2.loli.net/2023/07/16/LUdxHf2yb9oGM7Z.png',        
         repo: 'https://github.com/colin-chang/frontend',
-        smoothScroll:true,
-        search: false,
-        algolia: {
-            apiKey: '7a269ff154c01ff556c3e662dcb1e3b7',
-            indexName: "frontend-a-nomad",
-            appId: '9N9PY13ZHL'
-        },
-        nav: [{
+        docsBranch:'master',
+        docsDir:'docs',
+        navbar: [{
                 text: 'Get Start',
                 link: '/css/intro'
             },
             {
                 text: 'Books',
-                items: [{
+                children: [{
                         text: 'Python',
                         link: 'https://python.a-nomad.com'
                     },
@@ -54,8 +44,8 @@ module.exports = {
         ],
         sidebar: [
             {
-                title: 'HTML5/CSS3',
-                collapsable: false,
+                text: 'HTML5/CSS3',
+                collapsible: false,
                 children: [
                     '/css/intro',
                     '/css/css3',
@@ -63,7 +53,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'JavaScript',
+                text: 'JavaScript',
                 collapsable: false,
                 children: [
                     '/js/es',
@@ -71,18 +61,25 @@ module.exports = {
                 ]
             },
             {
-                title: 'Node.js',
+                text: 'Node.js',
                 collapsable: false,
                 children: [
                     '/node/basic'
                 ]
-            },
+            }
         ],
         sidebarDepth:3,
-        displayAllHeaders: true,
-        lastUpdated: '更新时间',
-    },
-    markdown: {
-        lineNumbers: true
-    }
+        lastUpdatedText: '更新时间',
+        contributors:false
+    }),
+    plugins: [
+        docsearchPlugin({
+            appId: '9N9PY13ZHL',
+            apiKey: '7a269ff154c01ff556c3e662dcb1e3b7',
+            indexName: "frontend-a-nomad"
+          }),
+        googleAnalyticsPlugin({
+            ga: 'UA-131744342-1'
+        })
+    ]
 }
