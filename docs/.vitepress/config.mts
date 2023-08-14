@@ -7,7 +7,7 @@ export default defineConfig({
   lastUpdated: true,
   head: [['link', { rel: 'icon', href: 'https://s2.loli.net/2022/08/04/UXqgLBVfzPuvb5A.png' }]],
   themeConfig: {
-    logo: { src: 'https://s2.loli.net/2022/08/04/UXqgLBVfzPuvb5A.png', width: 24, height: 24 },
+    logo: { src: 'https://s2.loli.net/2023/08/14/dWrCDTFK9z1m5Ii.png', width: 24, height: 24 },
     nav: [
       { text: 'Home', link: '/' },
       {
@@ -76,5 +76,8 @@ export default defineConfig({
         indexName: 'frontend-a-nomad'
       }
     },
+  },
+  markdown: {
+    lineNumbers: true
   }
 })

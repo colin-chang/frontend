@@ -113,7 +113,7 @@
 background-image: linear-gradient(45deg,black 40%,transparent);
 
 /*背景色从透明线性渐变到粉色然后再渐变到红色*/
-background-image: linear-gradient(transparent,pink,red)
+background-image: linear-gradient(transparent,pink,red);
 ```
 
 #### 2.4.2 径向渐变
