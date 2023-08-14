@@ -1,7 +1,11 @@
 # Web APIs
+
 ## 1. Dom
+
 ### 1.1 属性样式
+
 * 获取Dom元素的常用方式
+
   ```js{2,5}
   // 返回CSS选择器匹配的第一个元素,如果没有匹配到，则返回null
   document.querySelector('css选择器')
@@ -9,9 +13,11 @@
   // 返回parentNode中CSS选择器匹配的NodeList对象集合(伪数组)，
   parentNode.querySelectorAll('css选择器')
   ```
+
 * 操作元素属性
 
   可以直接通过`对象.属性=值`的方式修改元素标准属性。html5中约定了使用`data-`开头的为自定义属性，Dom对象使用`dataset`来获取。
+
   ```js{2-4}
   const pic = document.querySelector('img')
   pic.src = '/new_pic.jpg'
@@ -20,6 +26,7 @@
   ```
 
 * style属性
+
   ```js{2-3}
   const box = document.querySelector('.box')
   box.style.width ='200px'
@@ -41,6 +48,7 @@
   ```
 
 * 表单操作
+
   ```js{2,6-7,10}
   const txt = document.querySelector('.txt')
   txt.value = 'this is a text box'
@@ -55,6 +63,7 @@
   ```
 
 ### 1.2 节点操作
+
 `Dom`中每一个内容都称之为节点(`Node`)，常见的节点类型包括 元素节点、属性节点、文本节点等。
 
 ![Dom节点](https://s2.loli.net/2023/05/09/LrbI2EBlDKeW9Jf.jpg)
@@ -74,8 +83,8 @@
 `node.cloneNode(boolen)`|克隆节点，参数为true代表克隆包含后代节点，默认为false
 `node.removeChild(node)`|删除子节点
 
-
 ### 1.3 事件监听
+
 `EventTarget.addEventListener('事件类型',事件处理函数)`可以将指定的监听器注册到`EventTarget`上，当该对象触发指定的事件时，指定的回调函数就会被执行。它允许为一个事件添加多个监听器，相比于`onXYZ`属性绑定来说，它提供了一种更精细的手段来控制 `listener`的触发阶段。
 
 ```js{2,4-5}
@@ -100,7 +109,6 @@ btn.addEventListener('click',function(e){
 `load`|元素加载完毕，用于window对象表示整个页面资源全部加载完毕
 `DOMContentLoaded`|一般用于`document`对象,表示HTML文档被完全加载和解析完成（css和图像等未必加载）
 
-
 鼠标经过/离开可以使用`mouseover/mouseout`或`mouseenter/mouseleave`两组事件，但前者会有冒泡效果，后者则没有，所以更推荐使用后者。
 
 在事件处理函数的参数拿到事件对象，事件对象中包含了当前事件的一些基本内容，如事件类型(`type`),光标相对于浏览器窗口的坐标(`clientX/ClientY`)，光标相对于当前DOM元素左上角的坐标(`offsetX/offsetY`)，用户按键(`key`)等。调用事件对象的`stopPropagation()`方法可以阻止事件冒泡，`preventDefault()`方法则可以阻止元素默认行为的发生，如阻止超链接跳转等。
@@ -114,7 +122,7 @@ const ul = document.querySelector('ul')
 ul.addEventListener('click', function (e) {
     console.log(e.target.innerText)
 })
-``` 
+```
 
 ### 1.4 scroll / resize
 
@@ -143,7 +151,6 @@ window.addEventListener('scroll', function (e) {
 `offsetLeft/offsetTop`|获取元素距离最近一级包含定位的父级元素的左/上距离|获取元素位置的时候使用，只读属性
 `getBoundingClientRect`|获取元素相对于视口的大小和位置
 
-
 `flexible.js`的核心代码就是监听了`window`对象的`resize`事件，在窗口尺寸变化时，获取`html`元素的`clientWidth`然后动态计算根字号尺寸。
 
 ```js{2-3,5}
@@ -155,6 +162,7 @@ window.addEventListener('resize',setFontSize)
 ```
 
 ### 1.5 移动端事件
+
 移动端一般是触屏设备，最常使用的操作是`touch`事件，`touch`对象代表一个触摸点，触摸点可能是手指、触控笔等。
 
 touch事件|说明
@@ -166,17 +174,20 @@ touch事件|说明
 以上事件仅在触屏设备上有效。
 
 ### 1.6 重绘和回流
+
 浏览器进行界面渲染会经过如下步骤：
+
 * 解析（`Parser`）HTML，生成DOM树(`DOM Tree`)
 * 同时解析（`Parser`） CSS，生成样式规则 (`Style Rules`)
-* 根据DOM树和样式规则，生成渲染树(`Render Tree`) 
-* 进行布局 `Layout`(回流/重排):根据生成的渲染树，得到节点的几何信息（位置，大小） 
-* 进行绘制 `Painting`(重绘): 根据计算和获取的信息进行整个页面的绘制 
+* 根据DOM树和样式规则，生成渲染树(`Render Tree`)
+* 进行布局 `Layout`(回流/重排):根据生成的渲染树，得到节点的几何信息（位置，大小）
+* 进行绘制 `Painting`(重绘): 根据计算和获取的信息进行整个页面的绘制
 * `Display`: 展示在页面上
 
 当 `Render Tree` 中部分或者全部元素的尺寸、结构、布局等发生改变时，浏览器就会重新渲染部分或全部文档的过程称为回流。节点(元素)的样式的改变并不影响它在文档流中的位置和文档布局时就不会导致回流，但会进行重绘。**重绘不一定引起回流，而回流一定会引起重绘。**
 
 会导致回流（重排）的操作：
+
 * 页面的首次刷新
 * 浏览器的窗口大小发生改变
 * 元素的大小或位置发生改变
@@ -188,6 +199,7 @@ touch事件|说明
 简单理解影响到布局了，就会有回流。
 
 #### 屏幕刷新重绘与`requestAnimationFrame`
+
 屏幕刷新率是指显示器每秒刷新屏幕的次数，通常以赫兹（Hz）表示。常见的屏幕刷新率包括 60Hz、75Hz、120Hz 等。屏幕刷新率定时刷新屏幕通常会引起浏览器的重绘，如果屏幕刷新率是60Hz，那意味着每隔16.67ms就会执行一次页面重绘。
 
 当我们使用 JavaScript 或 CSS 来实现动画，通常会设置动画更新时间与屏幕刷新率保持同步。动画更新频率高于屏幕刷新率是无效的，如动画设置每5ms更新一次，但屏幕刷新率为60Hz，动画最终会每16.67ms更新一次。
@@ -281,6 +293,7 @@ updateCountdown()
 ```
 
 ## 2. Bom
+
 `BOM(Browser Object Model)` 是浏览器对象模型。
 
 ![Bom](https://s2.loli.net/2023/05/09/83NVUu6dkKrGw2z.jpg)
@@ -288,6 +301,7 @@ updateCountdown()
 `window`对象是一个全局对象，也可以说是JavaScript中的顶级对象,基本BOM的属性和方法都属于`window`对象,但`window`对象下的属性和方法调用的时候可以省略`window`。
 
 ### 2.1 location / navigator / histroy
+
 `location` 对象拆分并保存了 URL 地址的各个组成部分，下表是其常用内容。
 属性/方法|作用
 :-|:-
@@ -298,6 +312,7 @@ updateCountdown()
 `reload()`|用来刷新当前页面，传入参数`true`时表示强制刷新
 
 `navigator`对象记录了浏览器自身的相关信息。
+
 ```js{3}
 // 检测 userAgent（浏览器信息）
 !(function () { 
@@ -322,6 +337,7 @@ updateCountdown()
 `go()`|前进或后退，参数如果是1则前进一个页面，如果是-1则后退一个页面
 
 ### 2.2 本地存储
+
 Web开发中为了满足各种各样的需求，会经常性在本地存储部分数据，HTML5规范提出了下面的相关解决方案。
 
 * 客户端存储保存在本地浏览器中
