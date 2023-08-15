@@ -770,15 +770,15 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 <style>
     .container {
         width: 688px;
-        height: 167px;
+        height: 168px;
     }
     .container img{
-        height: 167px;
+        height: 168px;
         transition: all .6s;
     }
     .container:hover img{
         /* 旋转会改变网页元素的坐标轴向，先写旋转，则后面的转换效果的轴向以旋转后的轴向为准，会影响转换结果，所以一般会将旋转放在最后 */
-        transform: translate(560px) rotate(356.5deg);
+        transform: translate(520px) rotate(354.7deg);
     }
 </style>
 <div class="container">
