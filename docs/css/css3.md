@@ -900,6 +900,10 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
         list-style: none;
     }
 
+    li:last-child {
+        margin-right: 0;
+    }
+
     li a {
         color: white;
     }
@@ -907,7 +911,6 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
     .picture {
         height: 158px;
         overflow: hidden;
-        background-color: red;
     }
 
     .picture img {
