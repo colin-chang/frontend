@@ -50,7 +50,7 @@ ES6中变量必须先声明后使用，不存在变量名提升和函数名提�
 
 ## 4. 数据类型
 
-![js数据类型](https://s2.loli.net/2023/05/06/x12pHbY4iNAsL3r.jpg)
+![js数据类型](https://s2.loli.net/2023/08/15/wiJNqTyLKPQmgZM.jpg)
 
 基本数据类型是值传递，引用类型是地址传递。
 

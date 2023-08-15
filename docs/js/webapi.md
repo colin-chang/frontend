@@ -66,7 +66,7 @@
 
 `Dom`中每一个内容都称之为节点(`Node`)，常见的节点类型包括 元素节点、属性节点、文本节点等。
 
-![Dom节点](https://s2.loli.net/2023/05/09/LrbI2EBlDKeW9Jf.jpg)
+![Dom节点](https://s2.loli.net/2023/08/15/NPrHtMou1AcfUOb.jpg)
 
 浏览器的`Dom API`允许我们通过节点之间的关系进行一些列节点操作（CRUD）。
 
@@ -296,7 +296,7 @@ updateCountdown()
 
 `BOM(Browser Object Model)` 是浏览器对象模型。
 
-![Bom](https://s2.loli.net/2023/05/09/83NVUu6dkKrGw2z.jpg)
+![Bom](https://s2.loli.net/2023/08/15/djDf6piUISzrqQg.jpg)
 
 `window`对象是一个全局对象，也可以说是JavaScript中的顶级对象,基本BOM的属性和方法都属于`window`对象,但`window`对象下的属性和方法调用的时候可以省略`window`。
 

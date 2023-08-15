@@ -5,7 +5,7 @@ export default defineConfig({
   title: "重拾大前端",
   description: "拥抱大前端时代",
   lastUpdated: true,
-  head: [['link', { rel: 'icon', href: 'https://s2.loli.net/2022/08/04/UXqgLBVfzPuvb5A.png' }]],
+  head: [['link', { rel: 'icon', href: 'https://s2.loli.net/2023/08/14/dWrCDTFK9z1m5Ii.png' }]],
   themeConfig: {
     logo: { src: 'https://s2.loli.net/2023/08/14/dWrCDTFK9z1m5Ii.png', width: 24, height: 24 },
     nav: [

@@ -518,7 +518,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
 * 居中显示
   
-  ![居中显示方法汇总](https://s2.loli.net/2023/04/27/KwBFYAxur2i9gVs.jpg)
+  ![居中显示方法汇总](https://s2.loli.net/2023/08/15/sDCoYulwkFrUVP9.jpg)
   * `img`标签垂直居中需要设置`vertical-align:middle;`
   * 绝对定位的盒子居中需要首先设置其`left`和`top`为50%。然后`margin-left`和设置为宽度的一半，`margin-top`设置为高度的一半即可，或者使用CSS3的位移属性设置`transform:translate(50%,50%)`，表示水平和垂直各移动到50%的位置。
 
@@ -693,14 +693,14 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
 ##### 案例2：双开门效果
 
-<iframe src="https://frontend-demo.a-nomad.com/transform_translate_open_door/index.html" style="margin-top:20px;width:100%;height:325px;border:0" scrolling="no" />
+<iframe src="https://frontend-demo.a-nomad.com/transform_translate_open_door/index.html" style="margin-top:20px;width:100%;height:302px;border:0" scrolling="no" />
 
 ```html{21,28-30,32-34}
 <style>
     .container {
         margin: 0 auto;
-        width: 740px;
-        height: 325px;
+        width: 688px;
+        height: 302px;
         background-image: url(./images/bg.jpg);
         background-size: cover;
         overflow: hidden;
@@ -764,16 +764,16 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
 ##### 案例2：多重转换-轮胎滚动
 
-<iframe src="https://frontend-demo.a-nomad.com/transform_tire_rolling/index.html" style="margin-top:20px;width:100%;height:180px;border:0;overflow: hidden;" scrolling="no" />
+<iframe src="https://frontend-demo.a-nomad.com/transform_tire_rolling/index.html" style="margin-top:20px;width:100%;height:167px;border:0;overflow: hidden;" scrolling="no" />
 
 ```html{8,10-13}
 <style>
     .container {
-        width: 740px;
-        height: 180px;
+        width: 688px;
+        height: 167px;
     }
     .container img{
-        height: 180px;
+        height: 167px;
         transition: all .6s;
     }
     .container:hover img{
@@ -798,7 +798,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
 ##### 案例：和平精英效果
 
-<iframe src="https://frontend-demo.a-nomad.com/transform_scale/index.html" style="width:300px;height:221px;border:0" scrolling="no" />
+<iframe src="https://frontend-demo.a-nomad.com/transform_scale/index.html" style="width:300px;height:221px;margin-top:20px;border:0" scrolling="no" />
 
 ```html{17-18,21-22,31-34}
 <style>
@@ -888,7 +888,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 
 #### 10.1.5 华为2D变换案例
 
-<iframe src="https://frontend-demo.a-nomad.com/transform_huawei/index.html" style="margin-top:20px;width:100%;height:169px;border:0" scrolling="no" />
+<iframe src="https://frontend-demo.a-nomad.com/transform_huawei/index.html" style="margin-top:20px;width:100%;height:158px;border:0" scrolling="no" />
 
 ```html{32-33,51-55,57-59,61-63,65-67}
 <style>
@@ -896,7 +896,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
         position: relative;
         float: left;
 
-        margin-right: 10px;
+        margin-right: 7px;
         list-style: none;
     }
 
@@ -905,13 +905,13 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
     }
 
     .picture {
-        height: 169px;
+        height: 158px;
         overflow: hidden;
         background-color: red;
     }
 
     .picture img {
-        width: 240px;
+        width: 224px;
     }
 
     .picture::after {
@@ -920,25 +920,25 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
         top: 0;
 
         content: '';
-        width: 240px;
-        height: 169px;
+        width: 224px;
+        height: 158px;
         background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
         opacity: 0;
     }
 
     .desc {
         position: absolute;
-        bottom: -45px;
-        padding: 20px;
+        bottom: -42px;
+        padding: 18px;
     }
 
     .desc h4 {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .desc p {
-        font-size: 11px;
-        margin-top: 20px;
+        font-size: 10px;
+        margin-top: 18px;
     }
 
     .desc,
@@ -948,7 +948,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
     }
 
     li:hover .desc {
-        transform: translateY(-40px);
+        transform: translateY(-37px);
     }
 
     li:hover .picture img {
@@ -1219,7 +1219,7 @@ CSS选择器非常丰富，时间开发中使用最多的是 `类选择器+后�
 </ul>
 ```
 
-![3dnav.jpg](https://s2.loli.net/2023/05/02/pVcsIFaM2j4w7Gh.jpg)
+![3D导航栏](https://s2.loli.net/2023/08/15/xTeLKEcy7CFZvhz.jpg)
 
 **空间旋转是中心点3D对象的中心点**，所以以上案例中所有超链接都要位移到距离中心点相同的距离，旋转效果才会自然。
 
